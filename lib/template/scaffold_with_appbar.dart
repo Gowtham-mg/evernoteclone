@@ -2,34 +2,42 @@ import 'package:evernote/hive_helper.dart';
 import 'package:evernote/meta/meta_text.dart';
 import 'package:evernote/routes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class ScaffoldWithAppBar extends StatelessWidget {
   final Widget child;
   final String title;
+  final List<Widget> actions;
 
-  ScaffoldWithAppBar({Key key, @required this.child, @required this.title})
+  ScaffoldWithAppBar(
+      {Key key,
+      @required this.child,
+      @required this.title, 
+      this.actions})
       : super(key: key);
 
   final ScrollController _scrollBarController = ScrollController();
   @override
   Widget build(BuildContext context) {
+    double _width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text(title),
+          actions: actions,
         ),
         body: child,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Row(
           children: [
             FlatButton(
-              onPressed: (){
+              onPressed: () {
                 // TODO: Open a note
               },
-              color: Colors.green.shade600,
+              color: Theme.of(context).primaryColor,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(24),
@@ -42,14 +50,21 @@ class ScaffoldWithAppBar extends StatelessWidget {
               ),
             ),
             FlatButton(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(24),
-                      bottomLeft: Radius.circular(24))),
-              onPressed: (){
-
-              },
-              child: Icon(Icons.arrow_upward_sharp))
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(24),
+                        bottomLeft: Radius.circular(24))),
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      barrierDismissible: true,
+                      barrierColor: Colors.black87,
+                      useSafeArea: true,
+                      builder: (BuildContext context) {
+                        return CreateMore(width: _width);
+                      });
+                },
+                child: Icon(Icons.keyboard_arrow_up))
           ],
         ),
         drawer: Drawer(
@@ -80,7 +95,7 @@ class ScaffoldWithAppBar extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text('gowthamgandhi123'),
-                                Icon(Icons.arrow_upward_outlined)
+                                Icon(Icons.keyboard_arrow_up)
                               ],
                             ),
                             Text('gowthamgandhi123@gmail.com')
@@ -154,7 +169,7 @@ class ScaffoldWithAppBar extends StatelessWidget {
                             builder: (BuildContext context, Box box, widget) {
                               bool val = box.get(HiveHelper.darkMode) ?? false;
                               return Switch(
-                                activeColor: Colors.green.shade600,
+                                activeColor: Theme.of(context).primaryColor,
                                 value: val,
                                 onChanged: (bool value) {
                                   box.put(HiveHelper.darkMode, !val);
@@ -201,6 +216,65 @@ class ScaffoldWithAppBar extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class CreateMore extends StatelessWidget {
+  const CreateMore({
+    Key key,
+    @required double width,
+  })  : _width = width,
+        super(key: key);
+
+  final double _width;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: _width * 0.6,
+      decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          borderRadius: BorderRadius.all(Radius.circular(13))),
+      alignment: Alignment.bottomCenter,
+      margin: EdgeInsets.only(
+        left: _width * 0.15,
+        right: _width * 0.15,
+        bottom: 20,
+      ),
+      child: Column(
+        children: [
+          optionItems(MetaText.addReminder, iconData: Icons.alarm),
+          optionItems(MetaText.recordAudio, iconData: Icons.multitrack_audio),
+          optionItems(MetaText.addAttachment, iconData: Icons.attach_file),
+          optionItems(MetaText.startSketching,
+              icon: SvgPicture.asset('assets/scribble.svg')),
+          optionItems(MetaText.takePhoto, iconData: Icons.camera_enhance),
+          optionItems(MetaText.blankNote, iconData: Icons.note_add),
+        ],
+      ),
+    );
+  }
+
+  MaterialButton optionItems(String option,
+      {IconData iconData, SvgPicture icon}) {
+    return MaterialButton(
+      onPressed: () {},
+      padding: const EdgeInsets.only(left: 5, right: 10, top: 7, bottom: 7),
+      shape: Border(
+          top: BorderSide.none,
+          left: BorderSide.none,
+          right: BorderSide.none,
+          bottom: BorderSide(color: Colors.grey, width: 0.8)),
+      child: Row(
+        children: [
+          iconData == null ? icon : Icon(iconData),
+          Padding(
+            padding: EdgeInsets.only(left: 10),
+            child: Text(option),
+          )
+        ],
       ),
     );
   }

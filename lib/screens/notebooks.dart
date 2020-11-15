@@ -8,29 +8,21 @@ class AllNotes extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScaffoldWithAppBar(
       child: Container(),
-      title: MetaText.allNotes,
+      title: MetaText.notebooks,
       actions: [
-        actionButton(() {}, SvgPicture.asset('assets/flash.svg')),
+        actionButton(() {}, SvgPicture.asset('assets/notebook-add.svg')),
         actionButton(() {}, Icon(Icons.search)),
         PopupMenuButton(
           icon: Icon(Icons.more_vert),
           itemBuilder: (BuildContext context) {
             return [
               PopupMenuItem(
-                child: Text(MetaText.selectNotes),
-                value: MetaText.selectNotes,
+                child: Text(MetaText.offlineNotebooks),
+                value: MetaText.offlineNotebooks,
               ),
               PopupMenuItem(
-                child: Text(MetaText.addToHomeScreen),
-                value: MetaText.addToHomeScreen,
-              ),
-              PopupMenuItem(
-                child: Text(MetaText.sortBy),
-                value: MetaText.sortBy,
-              ),
-              PopupMenuItem(
-                child: Text(MetaText.viewOptions),
-                value: MetaText.viewOptions,
+                child: Text(MetaText.sort),
+                value: MetaText.sort,
               ),
               PopupMenuItem(
                 child: Text(MetaText.syncNotes),

@@ -1,21 +1,28 @@
 import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
-class HiveHelper{
+class HiveHelper {
   static String themeMode = 'themeMode';
   static String darkMode = 'darkMode';
-  
-  static openBox(String boxName)async{
+  static String auth = 'auth';
+  static String token = 'token';
+  static String userId = 'userId';
+
+  static openBox(String boxName) async {
     await Hive.openBox(boxName);
   }
 
-  static putValue(String boxName, String key, dynamic value){
-    var box = Hive.box(themeMode);
-    box.put(darkMode, value);
+  static putValue(String boxName, String key, dynamic value) async {
+    var box = Hive.box(boxName);
+    await box.put(key, value);
   }
 
-  static bool getValue(String boxName, String key){
-    var box = Hive.box(themeMode);
-    return box.get(darkMode);
+  static getValue(String boxName, String key) {
+    var box = Hive.box(boxName);
+    return box.get(key);
+  }
+
+  static deleteValue(String boxName, String key) async{
+    var box = Hive.box(boxName);
+    await box.delete(key);
   }
 }

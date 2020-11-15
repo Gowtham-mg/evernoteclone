@@ -1,8 +1,9 @@
 import 'package:evernote/meta/meta_text.dart';
+import 'package:evernote/widgets/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class UpgradePlan extends StatelessWidget {
+class UpgradePlanOffline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width;
@@ -84,13 +85,8 @@ class UpgradePlan extends StatelessWidget {
               planItems(MetaText.discoverRelatedContent,
                   _index == 0 ? Offstage() : Icon(Icons.check)),
               _index == 0
-                  ? MaterialButton(
-                      onPressed: () {},
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(4)),
-                          side: BorderSide(color: Colors.green.shade600)),
-                      padding: EdgeInsets.symmetric(vertical: 5),
-                      minWidth: _width * 0.92,
+                  ? BorderedButton(
+                      width: _width * 0.92,
                       child: Column(
                         children: [
                           Text(
@@ -101,19 +97,10 @@ class UpgradePlan extends StatelessWidget {
                         ],
                       ),
                     )
-                  : MaterialButton(
-                      onPressed: () {},
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(4)),
-                      ),
-                      padding: EdgeInsets.symmetric(vertical: 9),
-                      color: Colors.green.shade600,
-                      minWidth: _width * 0.92,
-                      child: Text(
-                        MetaText.goPremium,
-                        textAlign: TextAlign.center,
-                      ),
-                    )
+                  : GreenButton(width: _width * 0.92,
+                    text: MetaText.goPremium,
+                    onPressed: (){},
+                  )
             ],
           );
         }),
