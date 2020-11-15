@@ -37,13 +37,18 @@ class MetaText {
   static const String password = 'Password';
   static const String termsOfService = 'Terms of Service';
   static const String privacyPolicy = 'Privacy Policy';
-  static const String byCreatingAccount = 'By creating an account, you are agreeing to our';
+  static const String byCreatingAccount =
+      'By creating an account, you are agreeing to our';
   static const String or = 'or';
   static const String cContinue = 'CONTINUE';
   static const String loginError = 'Login Error';
   static const String loginErrorDescription =
       "There's a problem with the email address you entered. Please tru again.";
   static const String ok = 'OK';
+  static const String cancel = 'CANCEL';
+  static const String tutorials = 'Tutorials';
+  static const String turnOffEducationalTips = 'Turn off educational tips';
+  static const String evernoteTour = 'Evernote Tour';
   static const String pleaseWait = 'Please, wait ...';
   static const String continueWithGoogle = 'Continue with Google';
   static const String evernoteMoto = 'Remember everything that matters';
@@ -51,6 +56,8 @@ class MetaText {
   static const String createAccount = 'CREATE ACCOUNT';
   static const String signIn = 'SIGN IN';
   static const String forgotPassword = 'FORGOT PASSWORD';
+  static const String pleaseChooseAPasscode = 'Please choose a passcode';
+  static const String attributions = 'Attributions';
 
   static const String addReminder = 'Add reminder';
   static const String recordAudio = 'Record audio';
@@ -62,6 +69,38 @@ class MetaText {
   static const String startChatting = 'Start chatting';
   static const String tapTostartChat = 'above to send a chat now';
 
+  static const String legal = 'Legal';
+  static const String support = 'Support';
+  static const String helpAndLearning = 'Help & Learning';
+  static const String sendActivityLog = 'Send Activity Log';
+  static const String sendActivityLogDescription = 'Send error log to Everyone';
+  static const String enableMenuToSendNoteLogs =
+      'Enable Menu to Send Note Logs';
+  static const String enableMenuToSendNoteLogsDescription =
+      'Enable an option to send note specific logs in the note list.';
+  static const String automaticallySendCrashReports =
+      'Automatically send crash reports';
+  static const String searchAndStorage = 'Search and Storage';
+  static const String clearLocalSearchHistory = 'Clear local search history';
+  static const String clearCache = 'Clear cache';
+  static const String searchAttachments = 'Search attachments';
+  static const String clearCacheDescription =
+      'Clear data stored on SD card while preserving any offline notebooks';
+  static const String searchAttachmentsDescription =
+      'Expand your search to PDF and office file attachments. Get Evenote Premium';
+  static const String context = 'Context';
+  static const String notes = 'Notes';
+  static const String notesSyncDescription =
+      'Automatically sync notes in the background';
+  static const String syncStatus = 'Sync status';
+  static const String wirelessNetworkSyncOnly = 'Wireless network sync only';
+  static const String wirelessNetworkSyncOnlyDescription =
+      'Automatically sync data only when connected to a wireless network.';
+  static const String chooseSyncFrequency = 'Choose sync frequency';
+  static const String upgradeForContext = 'Upgrade for Context';
+  static const String upgradeForContextDescription =
+      'Upgrade to Premium to see context from The Wall Street Journal, TechCruch, and other sources.';
+
   static const String selectNotes = 'Select notes';
   static const String addToHomeScreen = 'Add to home screen';
   static const String sortBy = 'Sort by';
@@ -69,6 +108,10 @@ class MetaText {
   static const String offlineNotebooks = 'Offline notebooks';
   static const String viewOptions = 'View options';
   static const String syncNotes = 'Sync';
+
+  static const String showWorkChat = 'Show work chat';
+  static const String showWorkChatDescription =
+      'Quickly access Work Chat discussions from the navigation menu';
 
   static const String to = 'To:';
   static const String deny = 'DENY';

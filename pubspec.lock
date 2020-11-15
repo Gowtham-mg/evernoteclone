@@ -286,6 +286,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.1"
+  flutter_gifimage:
+    dependency: "direct main"
+    description:
+      name: flutter_gifimage
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   flutter_svg:
     dependency: "direct main"
     description:

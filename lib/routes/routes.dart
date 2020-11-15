@@ -7,6 +7,7 @@ class Routes {
   static const String notebooks = 'notebooks';
   static const String susbcription = 'susbcription';
   static const String workChat = 'work_chat';
+  static const String attributions = 'attributions';
 
   static Route<dynamic> generateRoutes(RouteSettings routeSettings) {
     switch (routeSettings.name) {
