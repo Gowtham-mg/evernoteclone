@@ -63,24 +63,26 @@ class AllNotes extends StatelessWidget {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 100,
-                          width: _width*0.92,
-                          child: SercuredGif()),
+                            height: 100,
+                            width: _width * 0.92,
+                            child: SercuredGif()),
                         Padding(
-                          padding: EdgeInsets.only(left: _width*0.05, right: _width*0.05, top: 2, bottom: 10),
+                          padding: EdgeInsets.only(
+                              left: _width * 0.05,
+                              right: _width * 0.05,
+                              top: 2,
+                              bottom: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(MetaText.protectYourNotes),
                               Text(MetaText.protectYourNotesDescription),
                               Container(
-                                width: _width*0.82,
+                                width: _width * 0.82,
                                 alignment: Alignment.bottomRight,
                                 child: TextButton(
                                   child: Text(MetaText.setPasscode),
-                                  onPressed: (){
-                                    
-                                  },
+                                  onPressed: () {},
                                 ),
                               )
                             ],
@@ -89,7 +91,32 @@ class AllNotes extends StatelessWidget {
                       ],
                     )),
               ),
-              ListView.builder(),
+              ListView.builder(
+                itemCount: 10,
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      border: Border(
+                          top: BorderSide(
+                            color: Colors.grey,
+                          ),
+                          bottom: BorderSide(
+                            color: Colors.grey,
+                          )),
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('24/04/2021'),
+                        Text('Title dsasdksdfvnxckcv dcsadf'),
+                        Text('description cbzcbs hasdhasdbxzc dhiosadhjxcxbc zasdjsahdsnBczx csjdaidhaschzxc dhdhjhczxncnzdcsda sscichzxcjsddbc zchiasdchshcjsadczs'),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),
@@ -121,7 +148,9 @@ class _SercuredGifState extends State<SercuredGif>
   @override
   Widget build(BuildContext context) {
     return GifImage(
-      controller: controller,
-      image: AssetImage('assets/secured.gif',));
+        controller: controller,
+        image: AssetImage(
+          'assets/secured.gif',
+        ));
   }
 }

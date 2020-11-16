@@ -60,7 +60,7 @@ class NotesSettings extends StatelessWidget {
                 Slider(
                   value: null,
                   divisions: 1,
-                  onChanged: (int value) {},
+                  onChanged: (double value) {},
                   min: 50,
                   max: 200,
                 )

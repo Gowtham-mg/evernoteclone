@@ -149,9 +149,11 @@ class MetaText {
   static const String moleskineNotebookDescription =
       'Organize notebook pages in Evernote and customize with Smart Stickers';
   static const String businessCards = 'Business cards';
-  static const String businessCardsDescription = 'Get fast and accurate business car scans complete with photos and other details';
+  static const String businessCardsDescription =
+      'Get fast and accurate business car scans complete with photos and other details';
   static const String postItNotes = 'Post-it notes';
-  static const String postItNotesDescription = 'Customize how Evernote captures your Post-it notes';
+  static const String postItNotesDescription =
+      'Customize how Evernote captures your Post-it notes';
 
   static const String chooseNotebook = 'Choose Notebook';
   static const String recentNotebook = 'Recent Notebooks';
@@ -159,32 +161,61 @@ class MetaText {
   static const String quickNote = 'QUICK NOTE';
   static const String collectDocuments = 'COLLECT DOCUMENTS';
   static const String collectNotifications = 'Collect Notifications';
-  static const String collectNotificationsDescription = "When you snap a photo with text, uou'll seea notification reminding you to save it in Evernote";
-  static const String addNotesFromNotificationBar = 'Add notes from notification bar';
-  static const String addNotesFromNotificationBarDescription = 'When you want to capture a thought without launching the app, just swipe down from the top of your screen';
+  static const String collectNotificationsDescription =
+      "When you snap a photo with text, uou'll seea notification reminding you to save it in Evernote";
+  static const String addNotesFromNotificationBar =
+      'Add notes from notification bar';
+  static const String addNotesFromNotificationBarDescription =
+      'When you want to capture a thought without launching the app, just swipe down from the top of your screen';
   static const String inAppChatNotifications = 'In-app chat notifications';
-  static const String inAppChatNotificationsDescription = "When someone sends you a chat, you'll see a notification at the top of the screen.";
+  static const String inAppChatNotificationsDescription =
+      "When someone sends you a chat, you'll see a notification at the top of the screen.";
   static const String chatNotificationSound = 'Chat notification sound';
-  static const String chatNotificationSoundDesription = "When someone sends you a chat, you'll hear a sound with each system notification.";
+  static const String chatNotificationSoundDesription =
+      "When someone sends you a chat, you'll hear a sound with each system notification.";
   static const String chatNotificationVibration = 'Chat notification vibration';
-  static const String chatNotificationVibrationDescription = "When someone sends you a chat, your device will vibrate with each system notification.";
+  static const String chatNotificationVibrationDescription =
+      "When someone sends you a chat, your device will vibrate with each system notification.";
 
   static const String accountInfo = 'Account Info';
   static const String currentMonthlyUsage = 'Current monthly usage';
   static const String upgrade = 'Upgrade';
-  static const String upgradeDescription = 'Sync to unlimited devices, get more space, and take notebooks offline.';
+  static const String upgradeDescription =
+      'Sync to unlimited devices, get more space, and take notebooks offline.';
   static const String devices = 'Devices';
-  static const String devicesDescription = 'View and manage the devices that are connected to your Evernote account';
+  static const String devicesDescription =
+      'View and manage the devices that are connected to your Evernote account';
   static const String evernoteEmail = 'Evernote email';
   static const String setupPasscodeLock = 'Set up passcode lock';
-  static const String setupPasscodeLockDescription = 'Activate passcode lock to require a 4-digit code to browse and search notes.';
+  static const String setupPasscodeLockDescription =
+      'Activate passcode lock to require a 4-digit code to browse and search notes.';
   static const String inviteFriendsGetPremium = 'Invite Friends. Get Premium.';
-  static const String inviteFriendsGetPremiumDescription = 'Earn 10 points for each friend you refer, enough for a month of Premium.';
+  static const String inviteFriendsGetPremiumDescription =
+      'Earn 10 points for each friend you refer, enough for a month of Premium.';
   static const String country = 'Country';
   static const String signOut = 'Sign Out';
   static const String connectedAccounts = 'Connected Accounts';
+  static const String title = 'Title';
+  static const String noteCount = 'Note count';
+  static const String owner = 'Owner';
+  static const String sortNotebooksBy = 'Sort Notebooks by';
 
-  static const String exploreLevelsOfEvernote = 'Explore the levels of Evernote';
+  static const String notesUnavailableOffline = 'Notes unavailable offline';
+  static const String notesUnavailableOfflineDescription =
+      'Get offline access with Evernote Plus or Premium';
+  static const String chooseLater = 'CHOOSE LATER';
+  static const String learnMore = 'LEARN MORE';
+
+  static const String notebookOptions = '  Notebook options';
+  static const String share = 'Share';
+  static const String makeAvailableOffline = 'Make available offline';
+  static const String renameNotebook = 'Rename notebook';
+  static const String moveToNewStack = 'Move to new stack';
+  static const String addToShortcuts = 'Add to shortcuts';
+  static const String delete = 'Delete';
+
+  static const String exploreLevelsOfEvernote =
+      'Explore the levels of Evernote';
   static const String to = 'To:';
   static const String deny = 'DENY';
   static const String request = 'REQUEST:';

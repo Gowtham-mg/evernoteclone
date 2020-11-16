@@ -92,6 +92,7 @@ class _ChooseFrequencyState extends State<ChooseFrequency> {
                     });
                   },
                 ),
+                Text(frequency)
               ],
             )
           ).toList(),
