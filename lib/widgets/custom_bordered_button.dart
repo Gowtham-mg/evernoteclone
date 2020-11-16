@@ -4,7 +4,8 @@ class BorderedButton extends StatelessWidget {
   const BorderedButton({
     Key key,
     double width,
-    @required this.child, @required this.onPressed,
+    @required this.child,
+    @required this.onPressed,
   })  : _width = width,
         super(key: key);
 
@@ -17,7 +18,7 @@ class BorderedButton extends StatelessWidget {
         onPressed: onPressed,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(4)),
-            side: BorderSide(color: Theme.of(context).primaryColor)),
+            side: BorderSide(color: Theme.of(context).accentColor)),
         padding: EdgeInsets.symmetric(vertical: 5),
         minWidth: _width,
         child: child);

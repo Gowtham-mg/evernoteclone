@@ -33,7 +33,7 @@ class LoginSignup extends StatelessWidget {
                       'assets/logo.svg',
                       height: 50,
                       width: 50,
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).accentColor,
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 10, bottom: 15),
@@ -62,8 +62,9 @@ class LoginSignup extends StatelessWidget {
                               },
                               child: Text(_emailController.text),
                               shape: Border(
-                                  bottom:
-                                      BorderSide(color: Colors.grey, width: 1)),
+                                  bottom: BorderSide(
+                                      color: Theme.of(context).dividerColor,
+                                      width: 1)),
                             ),
                     ),
                     if (state is! LoginUiInitial)
@@ -209,7 +210,7 @@ class LoginSignup extends StatelessWidget {
                   child: Row(
                     children: [
                       CircularProgressIndicator(
-                        backgroundColor: Theme.of(context).primaryColor,
+                        backgroundColor: Theme.of(context).accentColor,
                       ),
                       Text(MetaText.pleaseWait)
                     ],

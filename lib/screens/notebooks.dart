@@ -104,7 +104,7 @@ class AllNotes extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         // color:
-        border: Border(bottom: BorderSide(color: Colors.grey, width: 1)),
+        border: Border(bottom: BorderSide(color: Theme.of(context).dividerColor, width: 1)),
       ),
       padding: EdgeInsets.symmetric(horizontal: width * 0.04, vertical: 10),
       margin: EdgeInsets.only(bottom: 5),

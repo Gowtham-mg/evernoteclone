@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 class GreenButton extends StatelessWidget {
   const GreenButton({
     Key key,
-    @required double width, @required this.text, @required this.onPressed,
+    @required double width,
+    @required this.text,
+    @required this.onPressed,
   })  : _width = width,
         super(key: key);
 
@@ -19,7 +21,7 @@ class GreenButton extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(4)),
       ),
       padding: EdgeInsets.symmetric(vertical: 9),
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).accentColor,
       minWidth: _width,
       child: Text(
         text,

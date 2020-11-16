@@ -56,7 +56,11 @@ class UpgradePlanOnline extends StatelessWidget {
                 featureItems(MetaText.searchInDocsAndAttachments, Icons.check),
                 featureItems(MetaText.annotatePdfs, Icons.check),
                 featureItems(MetaText.liveChatSupport, Icons.check),
-                GreenButton(width: _width*0.8, text: MetaText.goPremium, onPressed: (){},),
+                GreenButton(
+                  width: _width * 0.8,
+                  text: MetaText.goPremium,
+                  onPressed: () {},
+                ),
                 Text(MetaText.comparePlans),
                 Icon(Icons.keyboard_arrow_down)
               ],
@@ -97,7 +101,11 @@ class UpgradePlanOnline extends StatelessWidget {
                 featureItems(MetaText.searchInDocsAndAttachments, Icons.close),
                 featureItems(MetaText.annotatePdfs, Icons.close),
                 featureItems(MetaText.liveChatSupport, Icons.close),
-                BorderedButton(width: _width*0.8, child: Text(MetaText.selectBasic),),
+                BorderedButton(
+                  width: _width * 0.8,
+                  onPressed: () {},
+                  child: Text(MetaText.selectBasic),
+                ),
                 Text(MetaText.comparePlans),
                 Icon(Icons.keyboard_arrow_down)
               ],

@@ -89,7 +89,7 @@ class WorkChatEmpty extends StatelessWidget {
           ),
           DecoratedBox(
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey, width: 1),
+              border: Border.all(color: Theme.of(context).dividerColor, width: 1),
               borderRadius: BorderRadius.all(Radius.circular(5)),
             ),
             child: Column(

@@ -13,7 +13,14 @@ class AllNotes extends StatelessWidget {
     return ScaffoldWithAppBar(
       title: MetaText.allNotes,
       actions: [
-        actionButton(() {}, SvgPicture.asset('assets/flash.svg')),
+        actionButton(
+            () {},
+            SvgPicture.asset(
+              'assets/flash.svg',
+              color: Theme.of(context).primaryIconTheme.color,
+              height: Theme.of(context).appBarTheme.iconTheme.size * 1.05,
+              width: Theme.of(context).appBarTheme.iconTheme.size * 1.05,
+            )),
         actionButton(() {}, Icon(Icons.search)),
         PopupMenuButton(
           icon: Icon(Icons.more_vert),
@@ -49,69 +56,97 @@ class AllNotes extends StatelessWidget {
       ],
       child: Scrollbar(
         controller: _scrollController,
+        radius: Radius.circular(5),
         isAlwaysShown: false,
         thickness: 5,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: _width * 0.04),
+        child: SingleChildScrollView(
+          padding: EdgeInsets.only(
+              left: _width * 0.04, right: _width * 0.04, top: 20, bottom: 70),
+          controller: _scrollController,
           child: Column(
             children: [
-              Flexible(
-                child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                    ),
-                    child: Column(
-                      children: [
-                        SizedBox(
+              DecoratedBox(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Theme.of(context).dividerColor, width: 0.5),
+                  ),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 2),
+                        child: SizedBox(
                             height: 100,
                             width: _width * 0.92,
                             child: SercuredGif()),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: _width * 0.05,
-                              right: _width * 0.05,
-                              top: 2,
-                              bottom: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(MetaText.protectYourNotes),
-                              Text(MetaText.protectYourNotesDescription),
-                              Container(
-                                width: _width * 0.82,
-                                alignment: Alignment.bottomRight,
-                                child: TextButton(
-                                  child: Text(MetaText.setPasscode),
-                                  onPressed: () {},
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: _width * 0.05,
+                            right: _width * 0.05,
+                            top: 12,
+                            bottom: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              MetaText.protectYourNotes,
+                              style:
+                                  Theme.of(context).primaryTextTheme.headline6,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: Text(
+                                MetaText.protectYourNotesDescription,
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .headline5,
+                              ),
+                            ),
+                            Container(
+                              width: _width * 0.82,
+                              alignment: Alignment.bottomRight,
+                              child: TextButton(
+                                child: Text(
+                                  MetaText.setPasscode,
+                                  style:
+                                      Theme.of(context).primaryTextTheme.button,
                                 ),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    )),
-              ),
+                                onPressed: () {},
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  )),
               ListView.builder(
                 itemCount: 10,
                 shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                     decoration: BoxDecoration(
                       border: Border(
                           top: BorderSide(
-                            color: Colors.grey,
+                            color: Theme.of(context).dividerColor,
+                            width: 0.5,
                           ),
                           bottom: BorderSide(
-                            color: Colors.grey,
+                            color: Theme.of(context).dividerColor,
+                            width: 0.5,
                           )),
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 10),
+                    padding: EdgeInsets.symmetric(vertical: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('24/04/2021'),
-                        Text('Title dsasdksdfvnxckcv dcsadf'),
-                        Text('description cbzcbs hasdhasdbxzc dhiosadhjxcxbc zasdjsahdsnBczx csjdaidhaschzxc dhdhjhczxncnzdcsda sscichzxcjsddbc zchiasdchshcjsadczs'),
+                        Text('24/04/2021',
+                            style: Theme.of(context).textTheme.headline6),
+                        Text('Title dsasdksdfvnxckcv dcsadf',
+                            style: Theme.of(context).textTheme.headline5),
+                        Text(
+                            'description cbzcbs hasdhasdbxzc dhiosadhjxcxbc zasdjsahdsnBczx csjdaidhaschzxc dhdhjhczxncnzdcsda sscichzxcjsddbc zchiasdchshcjsadczs',
+                            style: Theme.of(context).textTheme.bodyText2),
                       ],
                     ),
                   );

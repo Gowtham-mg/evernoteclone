@@ -5,7 +5,7 @@ class MetaText {
   static const String protectYourNotesDescription =
       'Shared device? Keep your notes private with a passcode lock';
   static const String upgradeAccount = 'Upgrade Account';
-  static const String newNote = 'New note';
+  static const String newNote = '  New note';
   static const String collectPhotosDescription2 =
       'Photos are checked without being uploaded\nWe respect your data and privacy';
   static const String collectPhotosDescription1 =

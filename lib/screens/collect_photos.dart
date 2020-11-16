@@ -51,7 +51,7 @@ class CollectPhotos extends StatelessWidget {
                     right: 5,
                     child: CircleAvatar(
                       radius: 10,
-                      backgroundColor: Theme.of(context).primaryColor,
+                      backgroundColor: Theme.of(context).accentColor,
                       child: Icon(Icons.check, color: Colors.white,),
                     ),
                   )

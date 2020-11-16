@@ -53,7 +53,7 @@ class ExploreEvernoteItems extends StatelessWidget {
         width: width,
         child: DecoratedBox(
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey, width: 1),
+            border: Border.all(color: Theme.of(context).dividerColor, width: 1),
           ),
           child: Column(
             children: [

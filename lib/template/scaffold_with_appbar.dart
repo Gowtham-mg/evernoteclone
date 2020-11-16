@@ -12,10 +12,7 @@ class ScaffoldWithAppBar extends StatelessWidget {
   final List<Widget> actions;
 
   ScaffoldWithAppBar(
-      {Key key,
-      @required this.child,
-      @required this.title, 
-      this.actions})
+      {Key key, @required this.child, @required this.title, this.actions})
       : super(key: key);
 
   final ScrollController _scrollBarController = ScrollController();
@@ -24,48 +21,73 @@ class ScaffoldWithAppBar extends StatelessWidget {
     double _width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: AppBar(
-          title: Text(title),
+          backgroundColor: Theme.of(context).appBarTheme.color,
+          title: Text(
+            title,
+            style: Theme.of(context).appBarTheme.textTheme.headline6,
+          ),
           actions: actions,
         ),
         body: child,
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: Row(
-          children: [
-            FlatButton(
-              onPressed: () {
-                // TODO: Open a note
-              },
-              color: Theme.of(context).primaryColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(24),
-                      bottomLeft: Radius.circular(24))),
-              child: Row(
-                children: [
-                  Icon(Icons.add),
-                  Text(MetaText.newNote),
-                ],
-              ),
-            ),
-            FlatButton(
+        floatingActionButtonLocation:
+            FloatingActionButtonLocation.miniCenterDocked,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(bottom: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              FlatButton(
+                onPressed: () {
+                  // TODO: Open a note
+                },
+                color: Theme.of(context).accentColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(24),
                         bottomLeft: Radius.circular(24))),
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      barrierDismissible: true,
-                      barrierColor: Colors.black87,
-                      useSafeArea: true,
-                      builder: (BuildContext context) {
-                        return CreateMore(width: _width);
-                      });
-                },
-                child: Icon(Icons.keyboard_arrow_up))
-          ],
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.add,
+                      color: Theme.of(context).primaryIconTheme.color,
+                      size: Theme.of(context).primaryIconTheme.size,
+                    ),
+                    Text(
+                      MetaText.newNote,
+                      style: Theme.of(context).textTheme.button,
+                    ),
+                  ],
+                ),
+              ),
+              FlatButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(24),
+                          bottomRight: Radius.circular(24))),
+                  color: Colors.green.shade900,
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  minWidth: 0,
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        barrierColor: Colors.black87,
+                        useSafeArea: true,
+                        builder: (BuildContext context) {
+                          return CreateMore(width: _width);
+                        });
+                  },
+                  child: Icon(
+                    Icons.keyboard_arrow_up,
+                    color: Theme.of(context).primaryIconTheme.color,
+                    size: Theme.of(context).primaryIconTheme.size,
+                  ))
+            ],
+          ),
         ),
         drawer: Drawer(
           child: Column(
@@ -82,10 +104,11 @@ class ScaffoldWithAppBar extends StatelessWidget {
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        //TODO: get account details
                         CircleAvatar(
                           radius: 15,
                           child: Text('G'),
-                          //TODO: get account details
+                          backgroundColor: Colors.red,
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -169,7 +192,7 @@ class ScaffoldWithAppBar extends StatelessWidget {
                             builder: (BuildContext context, Box box, widget) {
                               bool val = box.get(HiveHelper.darkMode) ?? false;
                               return Switch(
-                                activeColor: Theme.of(context).primaryColor,
+                                activeColor: Theme.of(context).accentColor,
                                 value: val,
                                 onChanged: (bool value) {
                                   box.put(HiveHelper.darkMode, !val);
@@ -235,7 +258,7 @@ class CreateMore extends StatelessWidget {
     return Container(
       width: _width * 0.6,
       decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
+          color: Theme.of(context).accentColor,
           borderRadius: BorderRadius.all(Radius.circular(13))),
       alignment: Alignment.bottomCenter,
       margin: EdgeInsets.only(
@@ -245,19 +268,22 @@ class CreateMore extends StatelessWidget {
       ),
       child: Column(
         children: [
-          optionItems(MetaText.addReminder, iconData: Icons.alarm),
-          optionItems(MetaText.recordAudio, iconData: Icons.multitrack_audio),
-          optionItems(MetaText.addAttachment, iconData: Icons.attach_file),
-          optionItems(MetaText.startSketching,
+          optionItems(context, MetaText.addReminder, iconData: Icons.alarm),
+          optionItems(context, MetaText.recordAudio,
+              iconData: Icons.multitrack_audio),
+          optionItems(context, MetaText.addAttachment,
+              iconData: Icons.attach_file),
+          optionItems(context, MetaText.startSketching,
               icon: SvgPicture.asset('assets/scribble.svg')),
-          optionItems(MetaText.takePhoto, iconData: Icons.camera_enhance),
-          optionItems(MetaText.blankNote, iconData: Icons.note_add),
+          optionItems(context, MetaText.takePhoto,
+              iconData: Icons.camera_enhance),
+          optionItems(context, MetaText.blankNote, iconData: Icons.note_add),
         ],
       ),
     );
   }
 
-  MaterialButton optionItems(String option,
+  MaterialButton optionItems(BuildContext context, String option,
       {IconData iconData, SvgPicture icon}) {
     return MaterialButton(
       onPressed: () {},
@@ -266,7 +292,8 @@ class CreateMore extends StatelessWidget {
           top: BorderSide.none,
           left: BorderSide.none,
           right: BorderSide.none,
-          bottom: BorderSide(color: Colors.grey, width: 0.8)),
+          bottom:
+              BorderSide(color: Theme.of(context).dividerColor, width: 0.8)),
       child: Row(
         children: [
           iconData == null ? icon : Icon(iconData),

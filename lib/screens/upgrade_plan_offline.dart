@@ -39,7 +39,8 @@ class UpgradePlanOffline extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey, width: 1)),
+                    border: Border.all(
+                        color: Theme.of(context).dividerColor, width: 1)),
                 margin: EdgeInsets.symmetric(vertical: 10),
                 padding: EdgeInsets.symmetric(
                     horizontal: _width * 0.04, vertical: 10),
@@ -62,30 +63,50 @@ class UpgradePlanOffline extends StatelessWidget {
                 ),
               ),
               planItems(
-                  MetaText.syncAcrossDevices,
-                  Text(_index == 0
+                  title: MetaText.syncAcrossDevices,
+                  trailing: Text(_index == 0
                       ? MetaText.basicDevicesLimit
-                      : MetaText.unlimitedDevices.split(' ')[0])),
-              planItems(MetaText.monthlyUploads,
-                  Text(_index == 0 ? '60 MB' : '10 GB')),
-              planItems(MetaText.accessNotebooksOffline,
-                  _index == 0 ? Offstage() : Icon(Icons.check)),
-              planItems(MetaText.forwardEmailsIntoEvernote,
-                  _index == 0 ? Offstage() : Icon(Icons.check)),
-              planItems(MetaText.searchInDocsAndAttachments,
-                  _index == 0 ? Offstage() : Icon(Icons.check)),
-              planItems(MetaText.presentNotes,
-                  _index == 0 ? Offstage() : Icon(Icons.check)),
-              planItems(MetaText.annotatePdfs,
-                  _index == 0 ? Offstage() : Icon(Icons.check)),
-              planItems(MetaText.scanAndDigitizeBusinessCards,
-                  _index == 0 ? Offstage() : Icon(Icons.check)),
-              planItems(MetaText.browseHistoryOfNotes,
-                  _index == 0 ? Offstage() : Icon(Icons.check)),
-              planItems(MetaText.discoverRelatedContent,
-                  _index == 0 ? Offstage() : Icon(Icons.check)),
+                      : MetaText.unlimitedDevices.split(' ')[0]),
+                  context: context),
+              planItems(
+                  title: MetaText.monthlyUploads,
+                  trailing: Text(_index == 0 ? '60 MB' : '10 GB'),
+                  context: context),
+              planItems(
+                  title: MetaText.accessNotebooksOffline,
+                  trailing: _index == 0 ? Offstage() : Icon(Icons.check),
+                  context: context),
+              planItems(
+                  title: MetaText.forwardEmailsIntoEvernote,
+                  trailing: _index == 0 ? Offstage() : Icon(Icons.check),
+                  context: context),
+              planItems(
+                  title: MetaText.searchInDocsAndAttachments,
+                  trailing: _index == 0 ? Offstage() : Icon(Icons.check),
+                  context: context),
+              planItems(
+                  title: MetaText.presentNotes,
+                  trailing: _index == 0 ? Offstage() : Icon(Icons.check),
+                  context: context),
+              planItems(
+                  title: MetaText.annotatePdfs,
+                  trailing: _index == 0 ? Offstage() : Icon(Icons.check),
+                  context: context),
+              planItems(
+                  title: MetaText.scanAndDigitizeBusinessCards,
+                  trailing: _index == 0 ? Offstage() : Icon(Icons.check),
+                  context: context),
+              planItems(
+                  title: MetaText.browseHistoryOfNotes,
+                  trailing: _index == 0 ? Offstage() : Icon(Icons.check),
+                  context: context),
+              planItems(
+                  title: MetaText.discoverRelatedContent,
+                  trailing: _index == 0 ? Offstage() : Icon(Icons.check),
+                  context: context),
               _index == 0
                   ? BorderedButton(
+                      onPressed: () {},
                       width: _width * 0.92,
                       child: Column(
                         children: [
@@ -97,10 +118,11 @@ class UpgradePlanOffline extends StatelessWidget {
                         ],
                       ),
                     )
-                  : GreenButton(width: _width * 0.92,
-                    text: MetaText.goPremium,
-                    onPressed: (){},
-                  )
+                  : GreenButton(
+                      width: _width * 0.92,
+                      text: MetaText.goPremium,
+                      onPressed: () {},
+                    )
             ],
           );
         }),
@@ -108,7 +130,10 @@ class UpgradePlanOffline extends StatelessWidget {
     );
   }
 
-  Container planItems(String title, Widget trailing) {
+  Container planItems(
+      {@required String title,
+      @required Widget trailing,
+      @required BuildContext context}) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 7, vertical: 10),
       decoration: BoxDecoration(
@@ -116,7 +141,8 @@ class UpgradePlanOffline extends StatelessWidget {
               top: BorderSide.none,
               left: BorderSide.none,
               right: BorderSide.none,
-              bottom: BorderSide(color: Colors.grey, width: 0.8))),
+              bottom: BorderSide(
+                  color: Theme.of(context).dividerColor, width: 0.8))),
       child: Row(
         children: [Expanded(child: Text(title)), trailing],
       ),
