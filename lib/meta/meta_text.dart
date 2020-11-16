@@ -32,6 +32,8 @@ class MetaText {
   static const String lastSyncFailed = 'LAST SYNC FAILED AT: ';
   static const String dataConnectionUnavailable = 'DATA CONNECTION UNAVAILABLE';
 
+  static const String errorNoInternet =
+      'You are not connected to the internet. Please try again later.';
   static const String evernote = 'Evernote';
   static const String email = 'Email';
   static const String password = 'Password';
@@ -42,8 +44,8 @@ class MetaText {
   static const String or = 'or';
   static const String cContinue = 'CONTINUE';
   static const String loginError = 'Login Error';
-  static const String loginErrorDescription =
-      "There's a problem with the email address you entered. Please tru again.";
+  static const String loginErrorEmail =
+      "There's a problem with the email address you entered. Please try again.";
   static const String ok = 'OK';
   static const String cancel = 'CANCEL';
   static const String tutorials = 'Tutorials';

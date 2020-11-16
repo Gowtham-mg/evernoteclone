@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 
 class PlainScreen extends StatelessWidget {
   final Widget child;
-
-  const PlainScreen({Key key, this.child}) : super(key: key);
+  final Color color;
+  const PlainScreen({Key key, this.child, this.color}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: color ?? Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: child,
       ),

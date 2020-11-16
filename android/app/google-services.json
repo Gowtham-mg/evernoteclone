@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "525299993864",
+    "firebase_url": "https://evernote-74c85.firebaseio.com",
+    "project_id": "evernote-74c85",
+    "storage_bucket": "evernote-74c85.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525299993864:android:e0ac68d7f2b1b8b7e430bd",
+        "android_client_info": {
+          "package_name": "com.vilstream.evernote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525299993864-jh9jb63jmb8ohpbct4sth09cotaosla6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vilstream.evernote",
+            "certificate_hash": "90b3696236fa52b2e402be7fb6b62ce3660d93e1"
+          }
+        },
+        {
+          "client_id": "525299993864-shrbl6nnmlgh5dosmfbeso7gldl1nru4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMl6z0rsVO9699Oqfl5-a-MTD7RUpduus"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "525299993864-shrbl6nnmlgh5dosmfbeso7gldl1nru4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

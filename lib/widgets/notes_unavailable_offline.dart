@@ -26,7 +26,8 @@ class NotesUnavailableOffline extends StatelessWidget {
               TextButton(
                 child: Text(MetaText.learnMore),
                 onPressed: (){
-                  Navigator.pushNamed(context, Routes.susbcription);
+                  //TODO: route based on connectivity
+                  Navigator.pushNamed(context, Routes.susbcriptionOffline);
                 },
               ),
             ],

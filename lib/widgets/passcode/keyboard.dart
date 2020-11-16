@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'dart:convert';
 
 typedef KeyboardTapCallback = void Function(String text);
 
@@ -161,7 +160,7 @@ class CircleUIConfig {
 class Circle extends StatelessWidget {
   final bool filled;
   final CircleUIConfig circleUIConfig;
-  double extraSize = 0;
+  final double extraSize;
 
   Circle({Key key, this.filled = false, @required this.circleUIConfig, this.extraSize = 0}) : super(key: key);
 

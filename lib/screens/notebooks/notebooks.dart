@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:evernote/meta/meta_text.dart';
 import 'package:evernote/template/scaffold_with_appbar.dart';
 
-class AllNotes extends StatelessWidget {
+class AllNotebooks extends StatelessWidget {
   final TextEditingController _findNotebookController = TextEditingController();
   final FocusNode _findNotebookFocusNode = FocusNode();
   final ScrollController _notebookScrollController = ScrollController();

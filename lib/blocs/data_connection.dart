@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 
 class ConnectionHelperCubit extends Cubit<bool> {
-  ConnectionHelperCubit() : super(null);
+  final bool isConnected;
+  ConnectionHelperCubit(this.isConnected) : super(isConnected);
 
   // void getConnectionStatus()async{
   //   try {
