@@ -23,8 +23,8 @@ class LoginSignup extends StatelessWidget {
     return PlainScreen(
       color: Colors.white,
       child: BlocConsumer<LoginUiCubit, LoginUiState>(
-        listener: (oldstate, newstate){
-          if(newstate is LoginSignupSuccess){
+        listener: (oldstate, newstate) {
+          if (newstate is LoginSignupSuccess) {
             Navigator.pushReplacementNamed(context, Routes.allNotes);
           }
         },
@@ -108,7 +108,7 @@ class LoginSignup extends StatelessWidget {
                               onPressed: () {
                                 _loginUiCubit.updateState(LoginUiInitial());
                               },
-                              minWidth: _width*0.9,
+                              minWidth: _width * 0.9,
                               child: Text(
                                 _emailController.text,
                                 style: TextStyle(
@@ -194,17 +194,15 @@ class LoginSignup extends StatelessWidget {
                             } else if (!_isOnline) {
                               showDialog(
                                   context: context,
-                                  builder: (BuildContext context) {
-                                    return loginErrorDialog(_width, context,
-                                        MetaText.errorNoInternet);
-                                  });
+                                  builder: (BuildContext context) =>
+                                      loginErrorDialog(_width, context,
+                                          MetaText.errorNoInternet));
                             } else {
                               showDialog(
                                   context: context,
-                                  builder: (BuildContext context) {
-                                    return loginErrorDialog(_width, context,
-                                        MetaText.loginErrorEmail);
-                                  });
+                                  builder: (BuildContext context) =>
+                                      loginErrorDialog(_width, context,
+                                          MetaText.loginErrorEmail));
                             }
                           } else if (state is Signup) {
                             //TODO: signup
@@ -234,7 +232,15 @@ class LoginSignup extends StatelessWidget {
                         color: Colors.white,
                         minWidth: 0,
                         onPressed: () {
-                          _loginUiCubit.signinWithGoogle();
+                          if (_isOnline) {
+                            _loginUiCubit.signinWithGoogle();
+                          } else {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    loginErrorDialog(_width, context,
+                                        MetaText.errorNoInternet));
+                          }
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(
@@ -287,8 +293,7 @@ class LoginSignup extends StatelessWidget {
     );
   }
 
-  Dialog loginErrorDialog(double _width, BuildContext context, String error) {
-    return Dialog(
+  Dialog loginErrorDialog(double _width, BuildContext context, String error) => Dialog(
       child: Container(
         color: Colors.white,
         padding: EdgeInsets.symmetric(horizontal: _width * 0.05, vertical: 10),
@@ -330,5 +335,4 @@ class LoginSignup extends StatelessWidget {
         ),
       ),
     );
-  }
 }

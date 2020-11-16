@@ -4,6 +4,7 @@ export 'auth/choose_passcode.dart';
 export 'auth/login_signup.dart';
 export 'notebooks/choose_notebook.dart';
 export 'notebooks/notebooks.dart';
+export 'notebooks/search_notebooks.dart';
 export 'others/attributions.dart';
 export 'others/explore_evernote.dart';
 export 'others/legal.dart';

@@ -25,12 +25,17 @@ class MetaText {
   static const String collectPhotos = 'Collect Photos';
   static const String workChat = 'Work Chat';
   static const String trash = 'Trash';
+  static const String all = 'ALL';
   static const String darkTheme = 'Dark Theme';
   static const String settings = 'Settings';
   static const String exploreEvernote = 'Explore Evernote';
   static const String lastSync = 'LAST SYNC: ';
   static const String lastSyncFailed = 'LAST SYNC FAILED AT: ';
   static const String dataConnectionUnavailable = 'DATA CONNECTION UNAVAILABLE';
+
+  static const String tryAnotherSearch = 'Try another search';
+  static const String tryAnotherSearchDescription =
+      "You don't have any notebooks that match your search";
 
   static const String errorNoInternet =
       'You are not connected to the internet. Please try again later.';

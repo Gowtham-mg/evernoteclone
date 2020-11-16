@@ -32,6 +32,7 @@ class Routes {
   static const String exploreEvernote = 'explore_evernote';
   static const String legal = 'legal';
   static const String tutorials = 'tutorials';
+  static const String searchNotebooks = 'search_notebooks';
 
   static Route<dynamic> generateRoutes(RouteSettings routeSettings) {
     switch (routeSettings.name) {
@@ -50,7 +51,7 @@ class Routes {
             builder: (BuildContext context) => UpgradePlanOnline());
       case Routes.workChat:
         return MaterialPageRoute(
-            builder: (BuildContext context) => WorkChatEmpty());
+            builder: (BuildContext context) => Workchat());
       case Routes.collectPhotos:
         return MaterialPageRoute(
             builder: (BuildContext context) => CollectPhotos());
@@ -65,6 +66,8 @@ class Routes {
         return MaterialPageRoute(builder: (BuildContext context) => Trash());
       case Routes.tags:
         return MaterialPageRoute(builder: (BuildContext context) => Tags());
+      case Routes.searchNotebooks:
+        return MaterialPageRoute(builder: (BuildContext context) => SearchNotebooks());
       case Routes.searchNotes:
         return MaterialPageRoute(
             builder: (BuildContext context) => SearchYourNotes());

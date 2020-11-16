@@ -45,6 +45,7 @@ class WorkChatEmpty extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: _width * 0.05, vertical: 10),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           MaterialButton(
             onPressed: () async {
@@ -64,7 +65,8 @@ class WorkChatEmpty extends StatelessWidget {
                               TextButton(
                                 child: Text(MetaText.deny),
                                 onPressed: () {
-                                  Navigator.pushNamed(context, Routes.newChat);
+                                  Navigator.pushNamed(
+                                      context, Routes.newChat);
                                 },
                               ),
                               TextButton(
@@ -83,13 +85,14 @@ class WorkChatEmpty extends StatelessWidget {
                   });
             },
             shape: CircleBorder(),
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.zero,
             color: Colors.blue.shade300,
             child: Icon(Icons.add),
           ),
           DecoratedBox(
             decoration: BoxDecoration(
-              border: Border.all(color: Theme.of(context).dividerColor, width: 1),
+              border:
+                  Border.all(color: Theme.of(context).dividerColor, width: 1),
               borderRadius: BorderRadius.all(Radius.circular(5)),
             ),
             child: Column(
@@ -97,18 +100,20 @@ class WorkChatEmpty extends StatelessWidget {
                 Image.asset(
                   'assets/office-pic.jpg',
                   width: _width * 0.9,
-                  height: 100,
+                  height: 200,
                   fit: BoxFit.cover,
                 ),
                 Padding(
-                    padding: EdgeInsets.symmetric(horizontal: _width * 0.07),
+                    padding: EdgeInsets.symmetric(horizontal: _width * 0.07, vertical: 20),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(MetaText.startChatting),
                         Row(
                           children: [
                             Text('${MetaText.tap} '),
                             CircleAvatar(
+                              radius: 14,
                               child: Padding(
                                 child: Icon(Icons.add),
                                 padding: EdgeInsets.all(3),

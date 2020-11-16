@@ -1,4 +1,6 @@
+import 'package:evernote/hive_helper.dart';
 import 'package:evernote/models/notebook.dart';
+import 'package:evernote/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -6,8 +8,6 @@ import 'package:evernote/meta/meta_text.dart';
 import 'package:evernote/template/scaffold_with_appbar.dart';
 
 class AllNotebooks extends StatelessWidget {
-  final TextEditingController _findNotebookController = TextEditingController();
-  final FocusNode _findNotebookFocusNode = FocusNode();
   final ScrollController _notebookScrollController = ScrollController();
 
   final recentNotebooks = List.generate(
@@ -18,51 +18,94 @@ class AllNotebooks extends StatelessWidget {
     return ScaffoldWithAppBar(
       child: Scrollbar(
           controller: _notebookScrollController,
-          child: Column(
-            children: [
-              TextField(
-                controller: _findNotebookController,
-                focusNode: _findNotebookFocusNode,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(4)),
-                      borderSide: BorderSide(
-                        color: Colors.grey,
-                      ),
+          child: SingleChildScrollView(
+            padding: EdgeInsets.only(
+              bottom: 60,
+            ),
+            controller: _notebookScrollController,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                MaterialButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.searchNotebooks);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: HiveHelper.getValue(
+                                HiveHelper.themeMode, HiveHelper.darkMode)
+                            ? Colors.black12
+                            : Colors.grey.shade200),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+                    margin: EdgeInsets.symmetric(
+                        horizontal: _width * 0.04, vertical: 20),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.search,
+                          color: Theme.of(context).iconTheme.color,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Text(
+                            MetaText.findANotebook,
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                        )
+                      ],
                     ),
-                    fillColor: Colors.grey,
-                    prefixIcon: _findNotebookFocusNode.hasFocus
-                        ? CloseButton(
-                            // color: ,
-                            onPressed: () {
-                              _findNotebookController.clear();
-                            },
-                          )
-                        : Icon(Icons.search),
-                    hintText: MetaText.findANotebook),
-              ),
-              Text(MetaText.recentNotebook.split(' ')[0].toUpperCase()),
-              ...recentNotebooks
-                  .map((notebook) => notebookItems(
-                      context: context, width: _width, notebook: notebook))
-                  .toList(),
-              ListView.builder(
-                itemCount: 10,
-                controller: _notebookScrollController,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return notebookItems(
-                      context: context,
-                      width: _width,
-                      notebook:
-                          Notebook.named(name: 'jdsajdjaks', count: index));
-                },
-              )
-            ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: _width * 0.04,
+                  ),
+                  child: Text(
+                    MetaText.recentNotebook.split(' ')[0].toUpperCase(),
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                ),
+                ...recentNotebooks
+                    .map((notebook) => notebookItems(
+                        context: context, width: _width, notebook: notebook))
+                    .toList(),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: _width * 0.04,
+                    right: _width * 0.04,
+                    top: 20
+                  ),
+                  child: Text(
+                    MetaText.all,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                ),
+                ListView.builder(
+                  itemCount: 10,
+                  controller: _notebookScrollController,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    return notebookItems(
+                        context: context,
+                        width: _width,
+                        notebook:
+                            Notebook.named(name: 'jdsajdjaks', count: index));
+                  },
+                )
+              ],
+            ),
           )),
       title: MetaText.notebooks,
       actions: [
-        actionButton(() {}, SvgPicture.asset('assets/notebook-add.svg')),
+        actionButton(
+            () {},
+            SvgPicture.asset(
+              'assets/notebook-add.svg',
+              height: Theme.of(context).primaryIconTheme.size,
+              width: Theme.of(context).primaryIconTheme.size,
+            )),
         actionButton(() {}, Icon(Icons.search)),
         PopupMenuButton(
           icon: Icon(Icons.more_vert),
@@ -104,7 +147,9 @@ class AllNotebooks extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         // color:
-        border: Border(bottom: BorderSide(color: Theme.of(context).dividerColor, width: 1)),
+        border: Border(
+            bottom:
+                BorderSide(color: Theme.of(context).dividerColor, width: 0.5)),
       ),
       padding: EdgeInsets.symmetric(horizontal: width * 0.04, vertical: 10),
       margin: EdgeInsets.only(bottom: 5),
@@ -112,66 +157,62 @@ class AllNotebooks extends StatelessWidget {
         children: [
           Expanded(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(notebook.name),
+                Text(notebook.name,
+                  style: Theme.of(context).textTheme.headline5
+                ),
                 Text(
-                    "${notebook.count} ${notebook.count <= 1 ? 'Note' : 'Notes'}"),
+                    "${notebook.count} ${notebook.count <= 1 ? 'Note' : 'Notes'}",
+                  style: Theme.of(context).textTheme.bodyText2
+                ),
               ],
             ),
           ),
           IconButton(
-            icon: Icon(Icons.more_vert),
+            icon: Icon(Icons.more_vert, color: Theme.of(context).appBarTheme.iconTheme.color),
             onPressed: () {
-              showDialog(context: context, builder: (BuildContext context) {
-                return Dialog(
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: width*0.1),
-                    padding: EdgeInsets.symmetric(horizontal: 7, vertical: 12),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(MetaText.notebookOptions),
-                        TextButton(
-                          child: Text(MetaText.share),
-                          onPressed: (){
-
-                          },
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Dialog(
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: width * 0.1),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 7, vertical: 12),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(MetaText.notebookOptions),
+                            TextButton(
+                              child: Text(MetaText.share),
+                              onPressed: () {},
+                            ),
+                            TextButton(
+                              child: Text(MetaText.makeAvailableOffline),
+                              onPressed: () {},
+                            ),
+                            TextButton(
+                              child: Text(MetaText.renameNotebook),
+                              onPressed: () {},
+                            ),
+                            TextButton(
+                              child: Text(MetaText.moveToNewStack),
+                              onPressed: () {},
+                            ),
+                            TextButton(
+                              child: Text(MetaText.addToShortcuts),
+                              onPressed: () {},
+                            ),
+                            TextButton(
+                              child: Text(MetaText.delete),
+                              onPressed: () {},
+                            ),
+                          ],
                         ),
-                        TextButton(
-                          child: Text(MetaText.makeAvailableOffline),
-                          onPressed: (){
-
-                          },
-                        ),
-                        TextButton(
-                          child: Text(MetaText.renameNotebook),
-                          onPressed: (){
-
-                          },
-                        ),
-                        TextButton(
-                          child: Text(MetaText.moveToNewStack),
-                          onPressed: (){
-
-                          },
-                        ),
-                        TextButton(
-                          child: Text(MetaText.addToShortcuts),
-                          onPressed: (){
-
-                          },
-                        ),
-                        TextButton(
-                          child: Text(MetaText.delete),
-                          onPressed: (){
-
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              });
+                      ),
+                    );
+                  });
             },
           )
         ],

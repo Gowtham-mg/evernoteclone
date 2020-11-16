@@ -139,42 +139,42 @@ class ScaffoldWithAppBar extends StatelessWidget {
                       icon: Icons.book,
                       title: MetaText.notebooks,
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.allNotes);
+                        Navigator.pushNamed(context, Routes.notebooks);
                       },
                     ),
                     DrawerItems(
                       icon: Icons.people,
                       title: MetaText.sharedWithMe,
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.allNotes);
+                        Navigator.pushNamed(context, Routes.sharedWithMe);
                       },
                     ),
                     DrawerItems(
                       icon: Icons.tag,
                       title: MetaText.tags,
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.allNotes);
+                        Navigator.pushNamed(context, Routes.tags);
                       },
                     ),
                     DrawerItems(
                       icon: Icons.photo_library,
                       title: MetaText.collectPhotos,
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.allNotes);
+                        Navigator.pushNamed(context, Routes.collectPhotos);
                       },
                     ),
                     DrawerItems(
                       icon: Icons.chat,
                       title: MetaText.workChat,
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.allNotes);
+                        Navigator.pushNamed(context, Routes.workChat);
                       },
                     ),
                     DrawerItems(
                       icon: Icons.delete,
                       title: MetaText.trash,
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.allNotes);
+                        Navigator.pushNamed(context, Routes.trash);
                       },
                     ),
                     Row(
@@ -205,14 +205,14 @@ class ScaffoldWithAppBar extends StatelessWidget {
                       icon: Icons.settings,
                       title: MetaText.settings,
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.allNotes);
+                        Navigator.pushNamed(context, Routes.settings);
                       },
                     ),
                     DrawerItems(
                       icon: Icons.settings_applications,
                       title: MetaText.exploreEvernote,
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.allNotes);
+                        Navigator.pushNamed(context, Routes.settings);
                       },
                     ),
                   ],
@@ -267,6 +267,7 @@ class CreateMore extends StatelessWidget {
         bottom: 20,
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           optionItems(context, MetaText.addReminder, iconData: Icons.alarm),
           optionItems(context, MetaText.recordAudio,
@@ -274,7 +275,11 @@ class CreateMore extends StatelessWidget {
           optionItems(context, MetaText.addAttachment,
               iconData: Icons.attach_file),
           optionItems(context, MetaText.startSketching,
-              icon: SvgPicture.asset('assets/scribble.svg')),
+              icon: SvgPicture.asset(
+                'assets/scribble.svg',
+                height: Theme.of(context).primaryIconTheme.size,
+                width: Theme.of(context).primaryIconTheme.size,
+              )),
           optionItems(context, MetaText.takePhoto,
               iconData: Icons.camera_enhance),
           optionItems(context, MetaText.blankNote, iconData: Icons.note_add),
@@ -287,7 +292,7 @@ class CreateMore extends StatelessWidget {
       {IconData iconData, SvgPicture icon}) {
     return MaterialButton(
       onPressed: () {},
-      padding: const EdgeInsets.only(left: 5, right: 10, top: 7, bottom: 7),
+      padding: const EdgeInsets.only(left: 10, right: 10, top: 7, bottom: 7),
       shape: Border(
           top: BorderSide.none,
           left: BorderSide.none,
