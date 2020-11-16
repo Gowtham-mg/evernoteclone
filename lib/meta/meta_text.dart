@@ -112,7 +112,79 @@ class MetaText {
   static const String showWorkChat = 'Show work chat';
   static const String showWorkChatDescription =
       'Quickly access Work Chat discussions from the navigation menu';
+  static const String addInfo = 'ADD INFO';
+  static const String addLocationToNewNotes = 'Add location to new notes';
+  static const String addLocationToNewNotesDescription = 'Use GPS and Wifi';
+  static const String autoTitleUsingLocation = 'Auto-title using location';
+  static const String autoTitleUsingLocationDescription =
+      'Automatically title new notes with location, if available.';
+  static const String autoTitleUsingCalendar =
+      'Auto-title using calendar event';
+  static const String autoTitleUsingCalendarDescription =
+      'Automatically title new notes with calendar event, if available.';
+  static const String enableRichLinks = 'Enable rich links';
+  static const String richLinks = 'RICH LINKS';
+  static const String enableRichLinksDescription =
+      'Turn links into something better';
+  static const String clearCacheLinksDescription =
+      'Clear data from Rich Links cache';
+  static const String editor = 'EDITOR';
+  static const String scaleNotesBodySize = 'Scale note body size:';
+  static const String autoLinkPhoneNumbers = 'Auto-link phone numbers';
+  static const String autoLinkPhoneNumbersDescription =
+      'Auto-link numbers in your notes, making a phone call in just a mere tap away';
+  static const String defaultPersonalNotebook = 'Default personal notebook';
+  static const String offlineNotebooksDescription =
+      'Save entire notebooks to your phone so that you have access to your content at all times.';
+  static const String choose = 'CHOOSE';
 
+  static const String camera = 'Camera';
+  static const String activateMultishot = 'Activate multi-shot';
+  static const String activateMultishotDescription =
+      "Allows you to snap a series of photos. Deactivate to use device's default camera mode";
+  static const String savePhotoToGallery = 'Save to photo gallery';
+  static const String savePhotoToGalleryDescription =
+      'Save photos you take with the Evernote camera to the photo gallery on your device.';
+  static const String moleskineNotebook = 'Moleskine notebook';
+  static const String moleskineNotebookDescription =
+      'Organize notebook pages in Evernote and customize with Smart Stickers';
+  static const String businessCards = 'Business cards';
+  static const String businessCardsDescription = 'Get fast and accurate business car scans complete with photos and other details';
+  static const String postItNotes = 'Post-it notes';
+  static const String postItNotesDescription = 'Customize how Evernote captures your Post-it notes';
+
+  static const String chooseNotebook = 'Choose Notebook';
+  static const String recentNotebook = 'Recent Notebooks';
+  static const String notifications = 'Notifications';
+  static const String quickNote = 'QUICK NOTE';
+  static const String collectDocuments = 'COLLECT DOCUMENTS';
+  static const String collectNotifications = 'Collect Notifications';
+  static const String collectNotificationsDescription = "When you snap a photo with text, uou'll seea notification reminding you to save it in Evernote";
+  static const String addNotesFromNotificationBar = 'Add notes from notification bar';
+  static const String addNotesFromNotificationBarDescription = 'When you want to capture a thought without launching the app, just swipe down from the top of your screen';
+  static const String inAppChatNotifications = 'In-app chat notifications';
+  static const String inAppChatNotificationsDescription = "When someone sends you a chat, you'll see a notification at the top of the screen.";
+  static const String chatNotificationSound = 'Chat notification sound';
+  static const String chatNotificationSoundDesription = "When someone sends you a chat, you'll hear a sound with each system notification.";
+  static const String chatNotificationVibration = 'Chat notification vibration';
+  static const String chatNotificationVibrationDescription = "When someone sends you a chat, your device will vibrate with each system notification.";
+
+  static const String accountInfo = 'Account Info';
+  static const String currentMonthlyUsage = 'Current monthly usage';
+  static const String upgrade = 'Upgrade';
+  static const String upgradeDescription = 'Sync to unlimited devices, get more space, and take notebooks offline.';
+  static const String devices = 'Devices';
+  static const String devicesDescription = 'View and manage the devices that are connected to your Evernote account';
+  static const String evernoteEmail = 'Evernote email';
+  static const String setupPasscodeLock = 'Set up passcode lock';
+  static const String setupPasscodeLockDescription = 'Activate passcode lock to require a 4-digit code to browse and search notes.';
+  static const String inviteFriendsGetPremium = 'Invite Friends. Get Premium.';
+  static const String inviteFriendsGetPremiumDescription = 'Earn 10 points for each friend you refer, enough for a month of Premium.';
+  static const String country = 'Country';
+  static const String signOut = 'Sign Out';
+  static const String connectedAccounts = 'Connected Accounts';
+
+  static const String exploreLevelsOfEvernote = 'Explore the levels of Evernote';
   static const String to = 'To:';
   static const String deny = 'DENY';
   static const String request = 'REQUEST:';
