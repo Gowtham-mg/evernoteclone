@@ -20,7 +20,8 @@ class LoginFirebaseRepository extends LoginRepository {
   @override
   signInWithEmailPassword({String email, String password, String path}) {
     // TODO: implement signInWithEmailPassword
-    throw UnimplementedError();
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
   }
 
   @override

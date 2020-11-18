@@ -46,4 +46,8 @@ class LoginUiCubit extends Cubit<LoginUiState> {
   void handleBackPress(LoginUiState state){
     emit(state);
   }
+
+  void signInWithEmailPassword(String email, String password){
+    
+  }
 }
