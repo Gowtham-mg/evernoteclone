@@ -21,6 +21,7 @@ class FeatureItems extends StatelessWidget {
           child: Text(
             feature,
             style: Theme.of(context).textTheme.subtitle2,
+            maxLines: 3,
           ),
         )
       ],

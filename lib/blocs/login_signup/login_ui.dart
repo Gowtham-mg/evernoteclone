@@ -7,6 +7,7 @@ import 'package:evernote/repository/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 
 abstract class LoginUiState {}
 
@@ -36,11 +37,33 @@ class LoginUiCubit extends Cubit<LoginUiState> {
   final LoginRepository loginRepository;
   final FirebaseAuth auth;
   final FirebaseFirestore firestore;
+  final Box userBox;
 
-  LoginUiCubit(this.loginRepository, this.auth, this.firestore)
+  LoginUiCubit(this.loginRepository, this.auth, this.firestore, this.userBox)
       : super(LoginUiInitial());
 
   void updateState(LoginUiState state) {
+    emit(state);
+  }
+
+  Future<List<String>> checkIsUser(String email) async {
+    List<String> _availableOptions =
+        await auth.fetchSignInMethodsForEmail(email);
+    return _availableOptions;
+  }
+
+  void isEmailAvailable(String email) async {
+    emit(LoginUiLoading());
+    List<String> _availableOptions = await checkIsUser(email);
+    if (_availableOptions.isEmpty) {
+      emit(Signup());
+    } else {
+      emit(Signin());
+    }
+    debugPrint('_availableOptions ${_availableOptions.join(', ')}');
+  }
+
+  void handleBackPress(LoginUiState state) {
     emit(state);
   }
 
@@ -52,6 +75,7 @@ class LoginUiCubit extends Cubit<LoginUiState> {
         id: auth.currentUser.uid,
         profilePic: auth.currentUser.photoURL,
         phone: auth.currentUser.phoneNumber,
+        isPremiumUser: false,
         noOfDevicesLoggedIn: 1);
   }
 
@@ -60,6 +84,7 @@ class LoginUiCubit extends Cubit<LoginUiState> {
         email: auth.currentUser.email,
         token: token,
         id: auth.currentUser.uid,
+        isPremiumUser: false,
         noOfDevicesLoggedIn: 1);
   }
 
@@ -91,6 +116,7 @@ class LoginUiCubit extends Cubit<LoginUiState> {
       if (size != 1) {
         userModel.User user = getNewUserGoogle(_response.data.token);
         await firestore.collection(MetaText.users).add(user.toJson());
+        await userBox.add(user);
         emit(LoginSignupSuccess(true));
       } else {
         userModel.User user =
@@ -100,8 +126,9 @@ class LoginUiCubit extends Cubit<LoginUiState> {
             emit(UpgradePremium());
           } else {
             await firestore
-              .doc('/${MetaText.users}/${snapshotUser.docs.first.id}')
-              .update((user.toJson()));
+                .doc('/${MetaText.users}/${snapshotUser.docs.first.id}')
+                .update((user.toJson()));
+            await userBox.add(user);
             emit(LoginSignupSuccess(true));
           }
         } else {
@@ -111,27 +138,6 @@ class LoginUiCubit extends Cubit<LoginUiState> {
     } else {
       emit(LoginSignupError(_response.error));
     }
-  }
-
-  Future<List<String>> checkIsUser(String email) async {
-    List<String> _availableOptions =
-        await auth.fetchSignInMethodsForEmail(email);
-    return _availableOptions;
-  }
-
-  void isEmailAvailable(String email) async {
-    emit(LoginUiLoading());
-    List<String> _availableOptions = await checkIsUser(email);
-    if (_availableOptions.isEmpty) {
-      emit(Signup());
-    } else {
-      emit(Signin());
-    }
-    debugPrint('_availableOptions ${_availableOptions.join(', ')}');
-  }
-
-  void handleBackPress(LoginUiState state) {
-    emit(state);
   }
 
   void signInWithEmailPassword(String email, String password) async {
@@ -148,6 +154,7 @@ class LoginUiCubit extends Cubit<LoginUiState> {
           await firestore
               .doc('/${MetaText.users}/${snapshotUser.docs.first.id}')
               .update((user.toJson()));
+          await userBox.add(user);
           emit(LoginSignupSuccess(true));
         }
       } else {
@@ -164,6 +171,7 @@ class LoginUiCubit extends Cubit<LoginUiState> {
     if (appToken.isSuccess) {
       userModel.User user = getNewUserEmail(appToken.data.token);
       await firestore.collection(MetaText.users).add(user.toJson());
+      await userBox.add(user);
       emit(LoginSignupSuccess(true));
     } else {
       emit(LoginSignupError(appToken.error));

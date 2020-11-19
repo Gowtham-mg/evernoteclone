@@ -15,11 +15,16 @@ class Onboarding extends StatelessWidget {
     OnboardingCubit onboardingCubit = context.watch<OnboardingCubit>();
     double _width = MediaQuery.of(context).size.width;
     return WillPopScope(
-      onWillPop: ()async{
-        if(onboardingCubit.state < 5){
-
+      onWillPop: () async {
+        if (onboardingCubit.state < 5) {
+          showDialog(
+              barrierDismissible: true,
+              context: context,
+              builder: (BuildContext context) {
+                return QuitTourDialog();
+              });
         }
-        return ;
+        return false;
       },
       child: PlainScreen(
         color: Colors.white,
@@ -48,7 +53,7 @@ class Onboarding extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CircleAvatar(
-                        radius: 15,
+                        radius: 13,
                         backgroundColor: Colors.green,
                         child: Icon(
                           Icons.check,
@@ -140,7 +145,8 @@ class Onboarding extends StatelessWidget {
                           barrierColor: Colors.black45,
                           transitionDuration: const Duration(milliseconds: 200),
                           pageBuilder: (BuildContext buildContext,
-                              Animation animation, Animation secondaryAnimation) {
+                              Animation animation,
+                              Animation secondaryAnimation) {
                             return TourCompleted(width: _width);
                           });
                     }),
@@ -153,7 +159,7 @@ class Onboarding extends StatelessWidget {
                       style: Theme.of(context).primaryTextTheme.caption,
                     ),
                     onPressed: () {
-                      onboardingCubit.updateIndex(onboardingCubit.state+1);
+                      onboardingCubit.updateIndex(onboardingCubit.state + 1);
                       updateOnboarding(onboardingCubit.state);
                       Navigator.pushNamed(context, Routes.allNotes);
                     },
@@ -176,8 +182,8 @@ class Onboarding extends StatelessWidget {
     );
   }
 
-  updateOnboarding(int val){
-    HiveHelper.putValue(HiveHelper.auth, HiveHelper.onboarding, val);
+  updateOnboarding(int val) {
+    HiveHelper.putValue(HiveBoxHelper.auth, HiveKeyHelper.onboarding, val);
   }
 }
 

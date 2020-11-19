@@ -10,7 +10,7 @@ class LoginTokenRepository extends TokenRepository {
   AppResponse<AppToken> getToken() {
     try {
       return AppResponse.named(
-          data: HiveHelper.getValue(HiveHelper.auth, HiveHelper.token));
+          data: HiveHelper.getValue(HiveBoxHelper.auth, HiveKeyHelper.token));
     } catch (e) {
       debugPrint("Error Token $e");
       return AppResponse.named(error: e);
@@ -20,8 +20,10 @@ class LoginTokenRepository extends TokenRepository {
   @override
   Future<AppResponse<bool>> saveToken(AppToken appToken) async {
     try {
-      await HiveHelper.putValue(HiveHelper.auth, HiveHelper.userId, appToken.userId);
-      await HiveHelper.putValue(HiveHelper.auth, HiveHelper.token, appToken.token);
+      await HiveHelper.putValue(
+          HiveBoxHelper.auth, HiveKeyHelper.userId, appToken.userId);
+      await HiveHelper.putValue(
+          HiveBoxHelper.auth, HiveKeyHelper.token, appToken.token);
       return AppResponse.named(data: true);
     } catch (e) {
       debugPrint("Error Token $e");
@@ -32,8 +34,8 @@ class LoginTokenRepository extends TokenRepository {
   @override
   Future<AppResponse<bool>> deleteToken() async {
     try {
-      await HiveHelper.deleteValue(HiveHelper.auth, HiveHelper.userId);
-      await HiveHelper.deleteValue(HiveHelper.auth, HiveHelper.token);
+      await HiveHelper.deleteValue(HiveBoxHelper.auth, HiveKeyHelper.userId);
+      await HiveHelper.deleteValue(HiveBoxHelper.auth, HiveKeyHelper.token);
       return AppResponse.named(data: true);
     } catch (e) {
       debugPrint("Error Token $e");

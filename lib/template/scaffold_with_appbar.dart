@@ -188,14 +188,15 @@ class ScaffoldWithAppBar extends StatelessWidget {
                         ),
                         ValueListenableBuilder(
                             valueListenable:
-                                Hive.box(HiveHelper.themeMode).listenable(),
+                                Hive.box(HiveBoxHelper.themeMode).listenable(),
                             builder: (BuildContext context, Box box, widget) {
-                              bool val = box.get(HiveHelper.darkMode) ?? false;
+                              bool val =
+                                  box.get(HiveKeyHelper.darkMode) ?? false;
                               return Switch(
                                 activeColor: Theme.of(context).accentColor,
                                 value: val,
                                 onChanged: (bool value) {
-                                  box.put(HiveHelper.darkMode, !val);
+                                  box.put(HiveKeyHelper.darkMode, !val);
                                 },
                               );
                             })

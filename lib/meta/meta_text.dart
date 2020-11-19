@@ -271,8 +271,8 @@ class MetaText {
   static const String get10GbPerMonth = 'Get 10 GB of uploads per month';
   static const String accessYourNotebooksOffline =
       'Access your notebooks offline';
-  static const String tryit = 'Try it FreeFor7Days';
-  static const String freeFor7Days = 'free for 7 Days';
+  static const String tryit = 'Try it ';
+  static const String freeFor7Days = 'free for 7 Days ';
   static const String cancelAnyTime = 'and cancel at any time';
 
   static const String users = 'users';
@@ -302,4 +302,6 @@ class MetaText {
   static const String takeTheTourLater = 'Take the tour later?';
   static const String quitTour = 'QUIT TOUR';
   static const String takeTheTourLaterDescription = 'Find it in Settings > Tutorials > Evenote Tour';
+
+  static const String pleaseUpgrade = 'You have reached maximum device login limit(2). Please upgrade to Premium to Continue';
 }

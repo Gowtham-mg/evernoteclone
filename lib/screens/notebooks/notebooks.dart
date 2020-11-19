@@ -34,7 +34,7 @@ class AllNotebooks extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                         color: HiveHelper.getValue(
-                                HiveHelper.themeMode, HiveHelper.darkMode)
+                                HiveBoxHelper.themeMode, HiveKeyHelper.darkMode)
                             ? Colors.black12
                             : Colors.grey.shade200),
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
@@ -72,10 +72,7 @@ class AllNotebooks extends StatelessWidget {
                     .toList(),
                 Padding(
                   padding: EdgeInsets.only(
-                    left: _width * 0.04,
-                    right: _width * 0.04,
-                    top: 20
-                  ),
+                      left: _width * 0.04, right: _width * 0.04, top: 20),
                   child: Text(
                     MetaText.all,
                     style: Theme.of(context).textTheme.bodyText1,
@@ -160,17 +157,16 @@ class AllNotebooks extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(notebook.name,
-                  style: Theme.of(context).textTheme.headline5
-                ),
+                    style: Theme.of(context).textTheme.headline5),
                 Text(
                     "${notebook.count} ${notebook.count <= 1 ? 'Note' : 'Notes'}",
-                  style: Theme.of(context).textTheme.bodyText2
-                ),
+                    style: Theme.of(context).textTheme.bodyText2),
               ],
             ),
           ),
           IconButton(
-            icon: Icon(Icons.more_vert, color: Theme.of(context).appBarTheme.iconTheme.color),
+            icon: Icon(Icons.more_vert,
+                color: Theme.of(context).appBarTheme.iconTheme.color),
             onPressed: () {
               showDialog(
                   context: context,

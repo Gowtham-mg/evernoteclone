@@ -26,13 +26,27 @@ class LoginSignup extends StatelessWidget {
       child: BlocConsumer<LoginUiCubit, LoginUiState>(
         listener: (oldstate, newstate) {
           if (newstate is LoginSignupSuccess) {
-            Navigator.pushReplacementNamed(context, Routes.allNotes);
-          } else if(newstate is LoginSignupError){
-            Scaffold.of(context).showSnackBar(
-              SnackBar(
-                content: Text(newstate.error),
-              )
-            );
+            if (newstate.showTryForFree) {
+              Navigator.pushReplacementNamed(context, Routes.tryEvernote);
+            } else {
+              Navigator.pushReplacementNamed(context, Routes.allNotes);
+            }
+          } else if (newstate is LoginSignupError) {
+            Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text(newstate.error),
+            ));
+          } else if (newstate is UpgradePremium) {
+            showGeneralDialog(
+                context: context,
+                barrierDismissible: true,
+                barrierLabel:
+                    MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                barrierColor: Colors.black45,
+                transitionDuration: const Duration(milliseconds: 200),
+                pageBuilder: (BuildContext buildContext, Animation animation,
+                    Animation secondaryAnimation) {
+                  return ;
+                });
           }
         },
         builder: (BuildContext context, LoginUiState state) => Stack(
@@ -366,4 +380,18 @@ class LoginSignup extends StatelessWidget {
           ),
         ),
       );
+}
+
+
+class UpgradePremium extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          Text(MetaText.pleaseUpgrade, style: Theme.of(context).primaryTextTheme.headline2,)
+        ],
+      ),
+    );
+  }
 }

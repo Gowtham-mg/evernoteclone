@@ -30,4 +30,5 @@ export 'trash.dart';
 export 'support.dart';
 export 'shared_with_me.dart';
 export 'onboarding/welcome.dart';
+export 'onboarding/onboarding.dart';
 export 'onboarding/try_evernote.dart';

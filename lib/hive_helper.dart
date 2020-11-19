@@ -1,13 +1,21 @@
 import 'package:hive/hive.dart';
 
-class HiveHelper {
+class HiveBoxHelper {
   static String themeMode = 'themeMode';
-  static String darkMode = 'darkMode';
   static String auth = 'auth';
+  static String user = 'user';
+  static String notebook = 'notebook';
+  static String notes = 'notes';
+}
+
+class HiveKeyHelper {
+  static String darkMode = 'darkMode';
   static String token = 'token';
   static String userId = 'userId';
   static String onboarding = 'onboarding';
-  
+}
+
+class HiveHelper {
   static openBox(String boxName) async {
     await Hive.openBox(boxName);
   }
@@ -22,7 +30,7 @@ class HiveHelper {
     return box.get(key);
   }
 
-  static deleteValue(String boxName, String key) async{
+  static deleteValue(String boxName, String key) async {
     var box = Hive.box(boxName);
     await box.delete(key);
   }

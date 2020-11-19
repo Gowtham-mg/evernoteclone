@@ -4,23 +4,32 @@ import 'package:evernote/blocs/login_signup/login_ui.dart';
 import 'package:evernote/blocs/data_connection.dart';
 import 'package:evernote/blocs/onboarding_cubit.dart';
 import 'package:evernote/hive_helper.dart';
+import 'package:evernote/models/note.dart';
+import 'package:evernote/models/notebook.dart';
 import 'package:evernote/repository/login.dart';
 import 'package:evernote/repository/login_token.dart';
 import 'package:evernote/repository/user.dart';
 import 'package:evernote/routes/routes.dart';
 import 'package:evernote/screens/auth/login_signup.dart';
-import 'package:evernote/screens/onboarding/onboarding.dart';
+import 'package:evernote/screens/common.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:evernote/models/user.dart' as userModel;
 
 void main() async {
   await Hive.initFlutter();
-  await HiveHelper.openBox(HiveHelper.themeMode);
-  await HiveHelper.openBox(HiveHelper.auth);
+  await HiveHelper.openBox(HiveBoxHelper.themeMode);
+  await HiveHelper.openBox(HiveBoxHelper.auth);
+  await HiveHelper.openBox(HiveBoxHelper.user);
+  await HiveHelper.openBox(HiveBoxHelper.notes);
+  await HiveHelper.openBox(HiveBoxHelper.notebook);
+  Hive.registerAdapter<userModel.User>(userModel.UserAdapter());
+  Hive.registerAdapter<Notebook>(NotebookAdapter());
+  Hive.registerAdapter<Note>(NoteAdapter());
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   bool _isConnected = await DataConnectionChecker().hasConnection;
@@ -31,7 +40,8 @@ class MyApp extends StatelessWidget {
   final bool isConnected;
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-
+  final Box<userModel.User> userBox = Hive.box<userModel.User>(HiveBoxHelper.user);
+  
   MyApp({Key key, this.isConnected}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -47,24 +57,25 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<LoginUiCubit>(
           create: (context) =>
-              LoginUiCubit(loginRepository, firebaseAuth, firestore),
+              LoginUiCubit(loginRepository, firebaseAuth, firestore, userBox),
         ),
         BlocProvider<OnboardingCubit>(
-          create: (context) => OnboardingCubit(
-              HiveHelper.getValue(HiveHelper.auth, HiveHelper.onboarding) ?? 1),
+          create: (context) => OnboardingCubit(HiveHelper.getValue(
+                  HiveBoxHelper.auth, HiveKeyHelper.onboarding) ??
+              1),
         )
       ],
       child: Builder(
         builder: (BuildContext context) => ValueListenableBuilder(
-          valueListenable: Hive.box(HiveHelper.themeMode).listenable(),
+          valueListenable: Hive.box(HiveBoxHelper.themeMode).listenable(),
           builder: (BuildContext context, box, widget) {
             context.watch<ConnectionHelperCubit>().init();
-            bool isDark = box.get(HiveHelper.darkMode) ?? false;
+            bool isDark = box.get(HiveKeyHelper.darkMode) ?? false;
             return MaterialApp(
               title: 'Flutter Demo',
               debugShowCheckedModeBanner: false,
               themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
-              home: Onboarding(),
+              home: LoginSignup(),
               onGenerateRoute: Routes.generateRoutes,
               theme: ThemeData(
                   scaffoldBackgroundColor: Colors.white,
@@ -102,15 +113,20 @@ class MyApp extends StatelessWidget {
                       color: Colors.white,
                       fontSize: 18,
                     ),
-                    // try for free black bold normal text
-                    caption: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16),
+                    // try for free black normal text
+                    caption: TextStyle(color: Colors.black, fontSize: 16),
                     // feature items normal text
-                    subtitle2: TextStyle(color: Colors.black, fontSize: 17),
+                    subtitle2: TextStyle(
+                        color: Colors.black,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w400),
                   ),
                   primaryTextTheme: TextTheme(
+                    // force premium subscription
+                    headline2: TextStyle(
+                      color: Colors.black,
+                      fontSize: 24
+                    ),
                       caption: TextStyle(
                         color: Colors.green,
                         fontSize: 16,
@@ -155,6 +171,15 @@ class MyApp extends StatelessWidget {
                   primaryIconTheme:
                       IconThemeData(color: Colors.white, size: 22),
                   primaryTextTheme: TextTheme(
+                    // force premium subscription
+                    headline2: TextStyle(
+                      color: Colors.black,
+                      fontSize: 24
+                    ),
+                    headline1: TextStyle(
+                        color: Colors.black,
+                        fontSize: 26,
+                        fontWeight: FontWeight.w700),
                     caption: TextStyle(
                       color: Colors.green,
                       fontSize: 16,
@@ -211,12 +236,12 @@ class MyApp extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                     // try for free black bold normal text
-                    caption: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16),
+                    caption: TextStyle(color: Colors.black, fontSize: 16),
                     // feature items normal text
-                    subtitle2: TextStyle(color: Colors.black, fontSize: 17),
+                    subtitle2: TextStyle(
+                        color: Colors.black,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w400),
                   ),
                   dividerColor: Colors.grey.shade200,
                   accentColor: Colors.green.shade600,

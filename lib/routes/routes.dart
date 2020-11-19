@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 
 class Routes {
   static const String allNotes = 'all_notes';
+  static const String tryEvernote = 'tryEvernote';
+  static const String welcome = 'welcome';
+  static const String onboarding = 'onboarding';
   static const String newChat = 'new_chat';
   static const String notebooks = 'notebooks';
   static const String susbcriptionOffline = 'susbcription_offline';
@@ -50,14 +53,19 @@ class Routes {
         return MaterialPageRoute(
             builder: (BuildContext context) => UpgradePlanOnline());
       case Routes.workChat:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => Workchat());
+        return MaterialPageRoute(builder: (BuildContext context) => Workchat());
       case Routes.collectPhotos:
         return MaterialPageRoute(
             builder: (BuildContext context) => CollectPhotos());
       case Routes.sharedWithMe:
         return MaterialPageRoute(
             builder: (BuildContext context) => SharedWithMe());
+      case Routes.welcome:
+        return MaterialPageRoute(builder: (BuildContext context) => Welcome());
+      case Routes.tryEvernote:
+        return MaterialPageRoute(builder: (BuildContext context) => TryEvernote());
+      case Routes.onboarding:
+        return MaterialPageRoute(builder: (BuildContext context) => Onboarding());
       case Routes.syncc:
         return MaterialPageRoute(builder: (BuildContext context) => Sync());
       case Routes.support:
@@ -67,7 +75,8 @@ class Routes {
       case Routes.tags:
         return MaterialPageRoute(builder: (BuildContext context) => Tags());
       case Routes.searchNotebooks:
-        return MaterialPageRoute(builder: (BuildContext context) => SearchNotebooks());
+        return MaterialPageRoute(
+            builder: (BuildContext context) => SearchNotebooks());
       case Routes.searchNotes:
         return MaterialPageRoute(
             builder: (BuildContext context) => SearchYourNotes());

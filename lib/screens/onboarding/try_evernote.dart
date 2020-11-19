@@ -1,4 +1,5 @@
 import 'package:evernote/meta/meta_text.dart';
+import 'package:evernote/routes/routes.dart';
 import 'package:evernote/template/plain_screen.dart';
 import 'package:evernote/widgets/common.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class TryEvernote extends StatelessWidget {
             CloseButton(
               color: Colors.grey,
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context, Routes.welcome);
               },
             ),
             Spacer(
@@ -31,11 +32,13 @@ class TryEvernote extends StatelessWidget {
                   height: 80,
                   width: 80,
                 )),
-            Padding(
+            Container(
               padding: EdgeInsets.symmetric(vertical: 15),
               child: Text(
                 MetaText.tryEvernote,
                 style: Theme.of(context).primaryTextTheme.headline1,
+                overflow: TextOverflow.visible,
+                maxLines: 3,
               ),
             ),
             FeatureItems(
