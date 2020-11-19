@@ -7,7 +7,6 @@ import 'package:evernote/repository/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
 
 abstract class LoginUiState {}
 
@@ -110,8 +109,8 @@ class LoginUiCubit extends Cubit<LoginUiState> {
   void signinWithGoogle() async {
     emit(LoginUiLoading());
     AppResponse<AppToken> _response = await loginRepository.signInWithGoogle();
-    QuerySnapshot snapshotUser = await getQuerySnapshot();
     if (_response.isSuccess) {
+      QuerySnapshot snapshotUser = await getQuerySnapshot();
       int size = snapshotUser.size;
       if (size != 1) {
         userModel.User user = getNewUserGoogle(_response.data.token);
@@ -137,14 +136,15 @@ class LoginUiCubit extends Cubit<LoginUiState> {
       }
     } else {
       emit(LoginSignupError(_response.error));
+      emit(LoginUiInitial());
     }
   }
 
   void signInWithEmailPassword(String email, String password) async {
     AppResponse<AppToken> appToken = await loginRepository
         .signInWithEmailPassword(email: email, password: password);
-    QuerySnapshot snapshotUser = await getQuerySnapshot();
     if (appToken.isSuccess) {
+      QuerySnapshot snapshotUser = await getQuerySnapshot();
       userModel.User user =
           getExistingUserFirebase(appToken.data.token, snapshotUser);
       await userBox.add(user);
@@ -162,6 +162,7 @@ class LoginUiCubit extends Cubit<LoginUiState> {
       }
     } else {
       emit(LoginSignupError(appToken.error));
+      emit(Signin());
     }
   }
 
@@ -175,6 +176,7 @@ class LoginUiCubit extends Cubit<LoginUiState> {
       emit(LoginSignupSuccess(true));
     } else {
       emit(LoginSignupError(appToken.error));
+      emit(Signup());
     }
   }
 }

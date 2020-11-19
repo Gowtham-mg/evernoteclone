@@ -31,10 +31,25 @@ class LoginSignup extends StatelessWidget {
             } else {
               Navigator.pushReplacementNamed(context, Routes.allNotes);
             }
-          } else if (newstate is LoginSignupError) {
-            Scaffold.of(context).showSnackBar(SnackBar(
-              content: Text(newstate.error),
-            ));
+          } else if (oldstate is LoginSignupError) {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                      content: Container(
+                        child: Text(oldstate.read<LoginSignupError>().error),
+                      ),
+                      actions: [
+                        TextButton(
+                          child: Text(
+                            MetaText.ok,
+                            style: TextStyle(color: Colors.green, fontSize: 14),
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        )
+                      ],
+                    ));
           } else if (newstate is UpgradePremium) {
             showGeneralDialog(
                 context: context,

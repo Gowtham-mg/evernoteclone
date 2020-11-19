@@ -28,6 +28,7 @@ export 'sync.dart';
 export 'tags.dart';
 export 'trash.dart';
 export 'support.dart';
+export 'find_a_tag.dart';
 export 'shared_with_me.dart';
 export 'onboarding/welcome.dart';
 export 'onboarding/onboarding.dart';

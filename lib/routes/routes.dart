@@ -21,6 +21,7 @@ class Routes {
   static const String support = 'support';
   static const String syncc = 'sync';
   static const String tags = 'tags';
+  static const String findTag = 'find_tag';
   static const String trash = 'trash';
   //settings screens
   static const String accountInfo = 'account_info';
@@ -54,6 +55,8 @@ class Routes {
             builder: (BuildContext context) => UpgradePlanOnline());
       case Routes.workChat:
         return MaterialPageRoute(builder: (BuildContext context) => Workchat());
+      case Routes.findTag:
+        return MaterialPageRoute(builder: (BuildContext context) => FindATag());
       case Routes.collectPhotos:
         return MaterialPageRoute(
             builder: (BuildContext context) => CollectPhotos());
@@ -63,9 +66,11 @@ class Routes {
       case Routes.welcome:
         return MaterialPageRoute(builder: (BuildContext context) => Welcome());
       case Routes.tryEvernote:
-        return MaterialPageRoute(builder: (BuildContext context) => TryEvernote());
+        return MaterialPageRoute(
+            builder: (BuildContext context) => TryEvernote());
       case Routes.onboarding:
-        return MaterialPageRoute(builder: (BuildContext context) => Onboarding());
+        return MaterialPageRoute(
+            builder: (BuildContext context) => Onboarding());
       case Routes.syncc:
         return MaterialPageRoute(builder: (BuildContext context) => Sync());
       case Routes.support:

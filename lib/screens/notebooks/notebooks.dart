@@ -1,6 +1,6 @@
-import 'package:evernote/hive_helper.dart';
 import 'package:evernote/models/notebook.dart';
 import 'package:evernote/routes/routes.dart';
+import 'package:evernote/widgets/find_x_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -9,6 +9,7 @@ import 'package:evernote/template/scaffold_with_appbar.dart';
 
 class AllNotebooks extends StatelessWidget {
   final ScrollController _notebookScrollController = ScrollController();
+  final TextEditingController _newNotebookController = TextEditingController();
 
   final recentNotebooks = List.generate(
       3, (index) => Notebook.named(name: 'jdsajdjaks', count: index));
@@ -26,36 +27,11 @@ class AllNotebooks extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                MaterialButton(
-                  padding: EdgeInsets.zero,
+                FindXButton(
+                  text: MetaText.findANotebook,
                   onPressed: () {
                     Navigator.pushNamed(context, Routes.searchNotebooks);
                   },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: HiveHelper.getValue(
-                                HiveBoxHelper.themeMode, HiveKeyHelper.darkMode)
-                            ? Colors.black12
-                            : Colors.grey.shade200),
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
-                    margin: EdgeInsets.symmetric(
-                        horizontal: _width * 0.04, vertical: 20),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.search,
-                          color: Theme.of(context).iconTheme.color,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: Text(
-                            MetaText.findANotebook,
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
@@ -96,14 +72,49 @@ class AllNotebooks extends StatelessWidget {
           )),
       title: MetaText.notebooks,
       actions: [
-        actionButton(
-            () {},
+        actionButton(() {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(MetaText.newNotebook),
+                        TextField(
+                          controller: _newNotebookController,
+                          decoration: InputDecoration(
+                            hintText: 'Name',
+                          ),
+                        )
+                      ],
+                    ),
+                    actions: [
+                      TextButton(
+                        child: Text(MetaText.cancel,
+                            style: Theme.of(context).primaryTextTheme.caption),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      TextButton(
+                        child: Text(MetaText.ok,
+                            style: Theme.of(context).primaryTextTheme.caption),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  ));
+        },
             SvgPicture.asset(
               'assets/notebook-add.svg',
               height: Theme.of(context).primaryIconTheme.size,
               width: Theme.of(context).primaryIconTheme.size,
             )),
-        actionButton(() {}, Icon(Icons.search)),
+        actionButton(() {
+          Navigator.pushNamed(context, Routes.searchNotebooks);
+        }, Icon(Icons.search)),
         PopupMenuButton(
           icon: Icon(Icons.more_vert),
           onSelected: (String option) {
@@ -158,9 +169,12 @@ class AllNotebooks extends StatelessWidget {
               children: [
                 Text(notebook.name,
                     style: Theme.of(context).textTheme.headline5),
-                Text(
-                    "${notebook.count} ${notebook.count <= 1 ? 'Note' : 'Notes'}",
-                    style: Theme.of(context).textTheme.bodyText2),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: Text(
+                      "${notebook.count} ${notebook.count <= 1 ? 'Note' : 'Notes'}",
+                      style: Theme.of(context).textTheme.headline6),
+                ),
               ],
             ),
           ),

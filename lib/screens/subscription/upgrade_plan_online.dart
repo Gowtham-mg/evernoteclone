@@ -1,4 +1,5 @@
 import 'package:evernote/meta/meta_text.dart';
+import 'package:evernote/template/plain_screen.dart';
 import 'package:evernote/widgets/common.dart';
 import 'package:flutter/material.dart';
 
@@ -7,29 +8,38 @@ class UpgradePlanOnline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Scrollbar(
+    return PlainScreen(
+      color: Colors.white,
+      child: Scrollbar(
         controller: _scrollController,
         child: ListView(
           controller: _scrollController,
+          padding: EdgeInsets.symmetric(vertical: 10),
           children: [
-            ClipPath(
-              clipper: UpgradePlanCustomClipperBasic(),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: _width * 0.1),
-                    child: Text(MetaText.readyToDoMore),
+            // CustomPaint(
+            //   painter: UpgradePlanCustomPainterPremium(),
+            // child:
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: _width * 0.1),
+                  child: Text(
+                    MetaText.readyToDoMore,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700),
                   ),
-                  CloseButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  )
-                ],
-              ),
+                ),
+                CloseButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
             ),
+            // ),
             Padding(
               padding:
                   EdgeInsets.symmetric(horizontal: _width * 0.1, vertical: 10),
@@ -37,12 +47,27 @@ class UpgradePlanOnline extends StatelessWidget {
                 children: [
                   Expanded(
                       child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(MetaText.upgradeTo),
-                      Text(MetaText.premium)
+                      Text(
+                        MetaText.upgradeTo.toUpperCase(),
+                        style: TextStyle(
+                            color: Colors.grey.shade700, fontSize: 17),
+                      ),
+                      Text(
+                        MetaText.premium,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w700),
+                      )
                     ],
                   )),
-                  Icon(Icons.cloud_upload),
+                  Icon(
+                    Icons.cloud_upload,
+                    color: Colors.green,
+                    size: 80,
+                  ),
                 ],
               ),
             ),
@@ -61,50 +86,69 @@ class UpgradePlanOnline extends StatelessWidget {
                   FeatureItems(
                       feature: '200 MB ${MetaText.perNote}',
                       iconData: Icons.note),
-                  Text(MetaText.premiumAlsoIncludes),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Text(
+                      MetaText.premiumAlsoIncludes,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ),
                   FeatureItems(feature: MetaText.accessNotebooksOffline),
                   FeatureItems(feature: MetaText.searchInDocsAndAttachments),
                   FeatureItems(feature: MetaText.annotatePdfs),
                   FeatureItems(feature: MetaText.liveChatSupport),
-                  GreenButton(
-                    width: _width * 0.8,
-                    text: MetaText.goPremium,
-                    onPressed: () {},
+                  Padding(
+                    padding: const EdgeInsets.only(top: 30),
+                    child: GreenButton(
+                      width: _width * 0.8,
+                      text: MetaText.goPremium,
+                      onPressed: () {},
+                    ),
                   ),
-                  Text(MetaText.comparePlans),
-                  Icon(Icons.keyboard_arrow_down)
+                  Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        child: Text(MetaText.comparePlans,
+                            style: Theme.of(context).textTheme.subtitle2),
+                      )),
+                  Align(
+                      alignment: Alignment.center,
+                      child: Icon(Icons.keyboard_arrow_down))
                 ],
               ),
             ),
-            ClipPath(
-              clipper: UpgradePlanCustomClipperPremium(),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: _width * 0.1),
-                child: Text(MetaText.basic),
-              ),
-            ),
-            Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: _width * 0.1, vertical: 10),
-              child: Row(
-                children: [
-                  Expanded(
-                      child: Column(
-                    children: [
-                      Text(MetaText.upgradeTo),
-                      Text(MetaText.premium)
-                    ],
-                  )),
-                  Icon(Icons.cloud_upload),
-                ],
-              ),
-            ),
+            // CustomPaint(
+            //   painter: UpgradePlanCustomPainterBasic(),
+            // child:
+            // ),
             Padding(
               padding:
                   EdgeInsets.symmetric(horizontal: _width * 0.1, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 40),
+                    child: Text(
+                      MetaText.currentPlan.toUpperCase(),
+                      style:
+                          TextStyle(color: Colors.grey.shade700, fontSize: 17),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 7),
+                    child: Text(
+                      MetaText.basic,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ),
                   FeatureItems(
                       feature: MetaText.basicDevicesLimit,
                       iconData: Icons.computer),
@@ -125,13 +169,16 @@ class UpgradePlanOnline extends StatelessWidget {
                       feature: MetaText.annotatePdfs, iconData: Icons.close),
                   FeatureItems(
                       feature: MetaText.liveChatSupport, iconData: Icons.close),
-                  BorderedButton(
-                    width: _width * 0.8,
-                    onPressed: () {},
-                    child: Text(MetaText.selectBasic),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: BorderedButton(
+                      width: _width * 0.8,
+                      onPressed: () {},
+                      child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          child: Text(MetaText.selectBasic)),
+                    ),
                   ),
-                  Text(MetaText.comparePlans),
-                  Icon(Icons.keyboard_arrow_down)
                 ],
               ),
             ),

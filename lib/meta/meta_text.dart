@@ -9,7 +9,7 @@ class MetaText {
   static const String collectPhotosDescription2 =
       'Photos are checked without being uploaded\nWe respect your data and privacy';
   static const String collectPhotosDescription1 =
-      'Evernote finds photos in  your gallery that contain text so you can save them to your notes';
+      'Evernote finds photos in  your gallery that contain text so you can save them to your notes.';
   static const String collectPhotosTitle =
       'Collect photos that contain handwritting or text';
   static const String findATag = 'Find a tag';
@@ -263,7 +263,8 @@ class MetaText {
       'Scan and digitize business cards';
   static const String browseHistoryOfNotes = 'Browse the history of your notes';
   static const String discoverRelatedContent = 'Discover related content';
-  static const String readyToDoMore = 'Ready to do more with Evernote';
+  static const String readyToDoMore = 'Ready to do more with Evernote?';
+  static const String currentPlan = "Current Plan";
 
   static const String tryEvernote = 'Try Evernote Premium for free';
   static const String startFreeTrial = 'START FREE TRIAL';
@@ -304,4 +305,9 @@ class MetaText {
   static const String takeTheTourLaterDescription = 'Find it in Settings > Tutorials > Evenote Tour';
 
   static const String pleaseUpgrade = 'You have reached maximum device login limit(2). Please upgrade to Premium to Continue';
+
+  static const String youMustBeOnlineToUpgrade = 'You must be online in order to upgrade';
+  static const String gotit = 'GOT IT';
+  static const String refineYourSearch = 'Refine Your Search';
+  static const String newNotebook = 'New Notebook';
 }

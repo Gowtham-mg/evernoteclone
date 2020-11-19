@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:evernote/blocs/all_notes_cubit.dart';
+import 'package:evernote/blocs/drawer_cubit.dart';
 import 'package:evernote/blocs/login_signup/login_ui.dart';
 import 'package:evernote/blocs/data_connection.dart';
 import 'package:evernote/blocs/onboarding_cubit.dart';
@@ -68,7 +70,11 @@ class MyApp extends StatelessWidget {
           create: (context) => OnboardingCubit(HiveHelper.getValue(
                   HiveBoxHelper.auth, HiveKeyHelper.onboarding) ??
               1),
-        )
+        ),
+        BlocProvider<DrawerCubit>(create: (context)=> DrawerCubit()),
+        BlocProvider<TabSelectedCubit>(create: (context)=> TabSelectedCubit()),
+        BlocProvider<AllNotesSelectedCubit>(create: (context)=> AllNotesSelectedCubit()),
+        
       ],
       child: Builder(
         builder: (BuildContext context) => ValueListenableBuilder(
@@ -88,6 +94,11 @@ class MyApp extends StatelessWidget {
                   primaryIconTheme:
                       IconThemeData(color: Colors.grey.shade800, size: 22),
                   textTheme: TextTheme(
+                    // plan limit darkgrey
+                    headline4: TextStyle(
+                        color: Colors.grey.shade800,
+                        fontSize: 18
+                      ),
                     headline1: TextStyle(
                       color: Colors.grey.shade700,
                       fontSize: 20,
@@ -111,7 +122,7 @@ class MyApp extends StatelessWidget {
                     headline5: TextStyle(
                       color: Colors.black87,
                       height: 2,
-                      fontSize: 18.5,
+                      fontSize: 18,
                     ),
                     //Button white text
                     button: TextStyle(
@@ -162,10 +173,12 @@ class MyApp extends StatelessWidget {
                           fontWeight: FontWeight.w700)),
                   accentColor: Colors.green,
                   dividerColor: Colors.grey,
+                  accentIconTheme:
+                      IconThemeData(color: Colors.grey.shade700, size: 22),
                   appBarTheme: AppBarTheme(
                       iconTheme:
                           IconThemeData(color: Colors.grey.shade800, size: 19),
-                      color: Colors.white70,
+                      color: Colors.grey.shade50,
                       textTheme: TextTheme(
                         headline6: TextStyle(
                           color: Colors.grey.shade700,
@@ -177,6 +190,8 @@ class MyApp extends StatelessWidget {
                   scaffoldBackgroundColor: Colors.black,
                   primaryIconTheme:
                       IconThemeData(color: Colors.white, size: 22),
+                  accentIconTheme:
+                      IconThemeData(color: Colors.grey.shade700, size: 22),
                   primaryTextTheme: TextTheme(
                     // force premium subscription
                     headline2: TextStyle(color: Colors.black, fontSize: 24),
@@ -213,6 +228,11 @@ class MyApp extends StatelessWidget {
                         fontWeight: FontWeight.w600),
                   ),
                   textTheme: TextTheme(
+                    // plan limit darkgrey
+                    headline4: TextStyle(
+                        color: Colors.grey.shade800,
+                        fontSize: 18
+                      ),
                     headline1: TextStyle(
                       color: Colors.white70,
                       fontSize: 20,
@@ -236,7 +256,7 @@ class MyApp extends StatelessWidget {
                     headline5: TextStyle(
                       color: Colors.white,
                       height: 2,
-                      fontSize: 18.5,
+                      fontSize: 18,
                     ),
                     // button text
                     button: TextStyle(
@@ -255,7 +275,7 @@ class MyApp extends StatelessWidget {
                   dividerColor: Colors.grey.shade200,
                   accentColor: Colors.green.shade600,
                   appBarTheme: AppBarTheme(
-                      iconTheme: IconThemeData(color: Colors.grey, size: 19),
+                      iconTheme: IconThemeData(color: Colors.grey.shade300, size: 19),
                       color: ThemeData.dark().primaryColorDark,
                       textTheme: TextTheme(
                         headline6: TextStyle(

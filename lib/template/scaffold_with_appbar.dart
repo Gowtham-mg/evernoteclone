@@ -43,12 +43,13 @@ class ScaffoldWithAppBar extends StatelessWidget {
                         topLeft: Radius.circular(24),
                         bottomLeft: Radius.circular(24))),
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                minWidth: 0,
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(
                       Icons.add,
-                      color: Theme.of(context).primaryIconTheme.color,
+                      color: Colors.white,
                       size: Theme.of(context).primaryIconTheme.size,
                     ),
                     Text(
@@ -78,7 +79,7 @@ class ScaffoldWithAppBar extends StatelessWidget {
                   },
                   child: Icon(
                     Icons.keyboard_arrow_up,
-                    color: Theme.of(context).primaryIconTheme.color,
+                    color: Colors.white,
                     size: Theme.of(context).primaryIconTheme.size,
                   ))
             ],
