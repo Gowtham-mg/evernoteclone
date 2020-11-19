@@ -17,7 +17,8 @@ class HiveKeyHelper {
 
 class HiveHelper {
   static openBox(String boxName) async {
-    await Hive.openBox(boxName);
+    Box box = await Hive.openBox(boxName);
+    return box;
   }
 
   static putValue(String boxName, String key, dynamic value) async {

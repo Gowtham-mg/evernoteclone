@@ -22,27 +22,32 @@ import 'package:evernote/models/user.dart' as userModel;
 
 void main() async {
   await Hive.initFlutter();
-  await HiveHelper.openBox(HiveBoxHelper.themeMode);
-  await HiveHelper.openBox(HiveBoxHelper.auth);
-  await HiveHelper.openBox(HiveBoxHelper.user);
-  await HiveHelper.openBox(HiveBoxHelper.notes);
-  await HiveHelper.openBox(HiveBoxHelper.notebook);
-  Hive.registerAdapter<userModel.User>(userModel.UserAdapter());
-  Hive.registerAdapter<Notebook>(NotebookAdapter());
   Hive.registerAdapter<Note>(NoteAdapter());
+  Hive.registerAdapter<Notebook>(NotebookAdapter());
+  Hive.registerAdapter<userModel.User>(userModel.UserAdapter());
+  await Hive.openBox(HiveBoxHelper.themeMode);
+  await Hive.openBox(HiveBoxHelper.auth);
+  await Hive.openBox(HiveBoxHelper.user);
+  await Hive.openBox(HiveBoxHelper.notes);
+  await Hive.openBox(HiveBoxHelper.notebook);
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   bool _isConnected = await DataConnectionChecker().hasConnection;
-  runApp(MyApp(isConnected: _isConnected));
+  runApp(MyApp(
+    isConnected: _isConnected,
+  ));
 }
 
 class MyApp extends StatelessWidget {
   final bool isConnected;
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final Box<userModel.User> userBox = Hive.box<userModel.User>(HiveBoxHelper.user);
-  
-  MyApp({Key key, this.isConnected}) : super(key: key);
+  final userBox = Hive.box(HiveBoxHelper.user);
+
+  MyApp({
+    Key key,
+    @required this.isConnected,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final LoginTokenRepository loginTokenRepository = LoginTokenRepository();
@@ -81,7 +86,7 @@ class MyApp extends StatelessWidget {
                   scaffoldBackgroundColor: Colors.white,
                   // primary icons theme
                   primaryIconTheme:
-                      IconThemeData(color: Colors.white, size: 22),
+                      IconThemeData(color: Colors.grey.shade800, size: 22),
                   textTheme: TextTheme(
                     headline1: TextStyle(
                       color: Colors.grey.shade700,
@@ -122,11 +127,8 @@ class MyApp extends StatelessWidget {
                         fontWeight: FontWeight.w400),
                   ),
                   primaryTextTheme: TextTheme(
-                    // force premium subscription
-                    headline2: TextStyle(
-                      color: Colors.black,
-                      fontSize: 24
-                    ),
+                      // force premium subscription
+                      headline2: TextStyle(color: Colors.black, fontSize: 24),
                       caption: TextStyle(
                         color: Colors.green,
                         fontSize: 16,
@@ -149,6 +151,11 @@ class MyApp extends StatelessWidget {
                           fontSize: 15,
                           wordSpacing: 1.5,
                           height: 1.25),
+                      //drawer email
+                      subtitle2: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600),
                       headline1: TextStyle(
                           color: Colors.black,
                           fontSize: 26,
@@ -172,10 +179,7 @@ class MyApp extends StatelessWidget {
                       IconThemeData(color: Colors.white, size: 22),
                   primaryTextTheme: TextTheme(
                     // force premium subscription
-                    headline2: TextStyle(
-                      color: Colors.black,
-                      fontSize: 24
-                    ),
+                    headline2: TextStyle(color: Colors.black, fontSize: 24),
                     headline1: TextStyle(
                         color: Colors.black,
                         fontSize: 26,
@@ -202,6 +206,11 @@ class MyApp extends StatelessWidget {
                         fontSize: 15,
                         wordSpacing: 1.5,
                         height: 1.25),
+                    //drawer email
+                    subtitle2: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600),
                   ),
                   textTheme: TextTheme(
                     headline1: TextStyle(

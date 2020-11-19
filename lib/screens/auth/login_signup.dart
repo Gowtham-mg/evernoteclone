@@ -45,7 +45,7 @@ class LoginSignup extends StatelessWidget {
                 transitionDuration: const Duration(milliseconds: 200),
                 pageBuilder: (BuildContext buildContext, Animation animation,
                     Animation secondaryAnimation) {
-                  return ;
+                  return UpgradePremiumScreen(width: _width);
                 });
           }
         },
@@ -65,6 +65,8 @@ class LoginSignup extends StatelessWidget {
                 // absorbing: false,
                 child: ListView(
                   padding: EdgeInsets.only(
+                      left: _width * 0.05,
+                      right: _width * 0.05,
                       bottom: MediaQuery.of(context).viewInsets.bottom),
                   children: [
                     Container(
@@ -109,7 +111,8 @@ class LoginSignup extends StatelessWidget {
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: _width * 0.05),
+                              vertical: 10,
+                            ),
                             child: state is LoginUiInitial
                                 ? customTextField(
                                     controller: _emailController,
@@ -136,7 +139,8 @@ class LoginSignup extends StatelessWidget {
                           if (state is! LoginUiInitial)
                             Padding(
                               padding: EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: _width * 0.05),
+                                vertical: 10,
+                              ),
                               child: Column(
                                 children: [
                                   customTextField(
@@ -216,21 +220,10 @@ class LoginSignup extends StatelessWidget {
                               }),
                           Padding(
                               padding: EdgeInsets.only(
-                                  top: 10,
-                                  left: _width * 0.05,
-                                  right: _width * 0.05),
+                                top: 10,
+                              ),
                               child: Text(MetaText.forgotPassword)),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: _width * 0.05),
-                            child: Row(
-                              children: [
-                                Divider(),
-                                Text(MetaText.or),
-                                Divider(),
-                              ],
-                            ),
-                          ),
+                          Text(MetaText.or),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 10),
                             child: MaterialButton(
@@ -382,14 +375,31 @@ class LoginSignup extends StatelessWidget {
       );
 }
 
+class UpgradePremiumScreen extends StatelessWidget {
+  final double width;
 
-class UpgradePremium extends StatelessWidget {
+  const UpgradePremiumScreen({Key key, this.width}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
         children: [
-          Text(MetaText.pleaseUpgrade, style: Theme.of(context).primaryTextTheme.headline2,)
+          Spacer(
+            flex: 1,
+          ),
+          Text(
+            MetaText.pleaseUpgrade,
+            style: Theme.of(context).primaryTextTheme.headline2,
+            maxLines: 4,
+            softWrap: true,
+          ),
+          Spacer(
+            flex: 1,
+          ),
+          GreenButton(
+              width: width * 0.9,
+              text: MetaText.upgradeAccount,
+              onPressed: () {})
         ],
       ),
     );

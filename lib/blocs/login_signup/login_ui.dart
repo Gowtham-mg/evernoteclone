@@ -37,7 +37,7 @@ class LoginUiCubit extends Cubit<LoginUiState> {
   final LoginRepository loginRepository;
   final FirebaseAuth auth;
   final FirebaseFirestore firestore;
-  final Box userBox;
+  final userBox;
 
   LoginUiCubit(this.loginRepository, this.auth, this.firestore, this.userBox)
       : super(LoginUiInitial());
@@ -121,6 +121,7 @@ class LoginUiCubit extends Cubit<LoginUiState> {
       } else {
         userModel.User user =
             getExistingUserFirebase(_response.data.token, snapshotUser);
+        await userBox.add(user);
         if (user.isPremiumUser ?? false) {
           if (user.noOfDevicesLoggedIn > 2) {
             emit(UpgradePremium());
@@ -128,7 +129,6 @@ class LoginUiCubit extends Cubit<LoginUiState> {
             await firestore
                 .doc('/${MetaText.users}/${snapshotUser.docs.first.id}')
                 .update((user.toJson()));
-            await userBox.add(user);
             emit(LoginSignupSuccess(true));
           }
         } else {
@@ -147,6 +147,7 @@ class LoginUiCubit extends Cubit<LoginUiState> {
     if (appToken.isSuccess) {
       userModel.User user =
           getExistingUserFirebase(appToken.data.token, snapshotUser);
+      await userBox.add(user);
       if (user.isPremiumUser ?? false) {
         if (user.noOfDevicesLoggedIn > 2) {
           emit(UpgradePremium());
@@ -154,7 +155,6 @@ class LoginUiCubit extends Cubit<LoginUiState> {
           await firestore
               .doc('/${MetaText.users}/${snapshotUser.docs.first.id}')
               .update((user.toJson()));
-          await userBox.add(user);
           emit(LoginSignupSuccess(true));
         }
       } else {
