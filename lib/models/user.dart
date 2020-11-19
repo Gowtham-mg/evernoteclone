@@ -2,10 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'user.g.dart';
 
-enum SubscriptionStatus {
-  basic,
-  premium
-}
+enum SubscriptionStatus { basic, premium }
 
 @JsonSerializable()
 class User {
@@ -19,17 +16,31 @@ class User {
   final String password;
   final String phone;
   final SubscriptionStatus subscriptionStatus;
-  
+  final int noOfDevicesLoggedIn;
+  final String token;
+  final bool isPremiumUser;
 
-  User(this.id, this.name, this.profilePic, this.email, this.password,
-      this.phone, this.subscriptionStatus);
-  User.named(
-      {this.id,
+  User(
+      this.id,
       this.name,
       this.profilePic,
       this.email,
       this.password,
-      this.subscriptionStatus, 
+      this.phone,
+      this.subscriptionStatus,
+      this.noOfDevicesLoggedIn,
+      this.token,
+      this.isPremiumUser);
+  User.named(
+      {this.id,
+      this.isPremiumUser,
+      this.noOfDevicesLoggedIn,
+      this.token,
+      this.name,
+      this.profilePic,
+      this.email,
+      this.password,
+      this.subscriptionStatus,
       this.phone});
 
   User copyWith(
@@ -39,6 +50,9 @@ class User {
       String email,
       String password,
       SubscriptionStatus subscriptionStatus,
+      int noOfDevicesLoggedIn,
+      String token,
+      bool isPremiumUser,
       String phone}) {
     return User.named(
         email: email ?? this.email,
@@ -47,8 +61,10 @@ class User {
         password: password ?? this.password,
         phone: phone ?? this.phone,
         profilePic: profilePic ?? this.profilePic,
-        subscriptionStatus: subscriptionStatus ?? this.subscriptionStatus
-      );
+        noOfDevicesLoggedIn: noOfDevicesLoggedIn ?? this.noOfDevicesLoggedIn,
+        token: token ?? this.token,
+        isPremiumUser: isPremiumUser ?? this.isPremiumUser,
+        subscriptionStatus: subscriptionStatus ?? this.subscriptionStatus);
   }
 
   Map<String, dynamic> toJson() => _$UserToJson(this);

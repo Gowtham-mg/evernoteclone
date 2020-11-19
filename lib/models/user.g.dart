@@ -16,6 +16,9 @@ User _$UserFromJson(Map<String, dynamic> json) {
     json['phone'] as String,
     _$enumDecodeNullable(
         _$SubscriptionStatusEnumMap, json['subscriptionStatus']),
+    json['noOfDevicesLoggedIn'] as int,
+    json['token'] as String,
+    json['isPremiumUser'] as bool,
   );
 }
 
@@ -28,6 +31,9 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'phone': instance.phone,
       'subscriptionStatus':
           _$SubscriptionStatusEnumMap[instance.subscriptionStatus],
+      'noOfDevicesLoggedIn': instance.noOfDevicesLoggedIn,
+      'token': instance.token,
+      'isPremiumUser': instance.isPremiumUser,
     };
 
 T _$enumDecode<T>(

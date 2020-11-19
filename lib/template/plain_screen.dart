@@ -7,6 +7,7 @@ class PlainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       backgroundColor: color ?? Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: child,

@@ -1,12 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:evernote/blocs/login_signup/login_ui.dart';
 import 'package:evernote/blocs/data_connection.dart';
+import 'package:evernote/blocs/onboarding_cubit.dart';
 import 'package:evernote/hive_helper.dart';
 import 'package:evernote/repository/login.dart';
 import 'package:evernote/repository/login_token.dart';
 import 'package:evernote/repository/user.dart';
 import 'package:evernote/routes/routes.dart';
 import 'package:evernote/screens/auth/login_signup.dart';
+import 'package:evernote/screens/onboarding/onboarding.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
@@ -25,22 +29,29 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final bool isConnected;
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  const MyApp({Key key, this.isConnected}) : super(key: key);
+  MyApp({Key key, this.isConnected}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final LoginTokenRepository loginTokenRepository = LoginTokenRepository();
     final UserRepository userRepository =
         FirebaseUserRepository(loginTokenRepository);
-    final LoginRepository loginRepository =
-        LoginFirebaseRepository(loginTokenRepository, userRepository);
+    final LoginRepository loginRepository = LoginFirebaseRepository(
+        loginTokenRepository, userRepository, firebaseAuth);
     return MultiBlocProvider(
       providers: [
         BlocProvider<ConnectionHelperCubit>(
           create: (context) => ConnectionHelperCubit(isConnected),
         ),
         BlocProvider<LoginUiCubit>(
-          create: (context) => LoginUiCubit(loginRepository),
+          create: (context) =>
+              LoginUiCubit(loginRepository, firebaseAuth, firestore),
+        ),
+        BlocProvider<OnboardingCubit>(
+          create: (context) => OnboardingCubit(
+              HiveHelper.getValue(HiveHelper.auth, HiveHelper.onboarding) ?? 1),
         )
       ],
       child: Builder(
@@ -52,10 +63,14 @@ class MyApp extends StatelessWidget {
             return MaterialApp(
               title: 'Flutter Demo',
               debugShowCheckedModeBanner: false,
+              themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
+              home: Onboarding(),
+              onGenerateRoute: Routes.generateRoutes,
               theme: ThemeData(
                   scaffoldBackgroundColor: Colors.white,
                   // primary icons theme
-                  primaryIconTheme: IconThemeData(color: Colors.white, size: 22),
+                  primaryIconTheme:
+                      IconThemeData(color: Colors.white, size: 22),
                   textTheme: TextTheme(
                     headline1: TextStyle(
                       color: Colors.grey.shade700,
@@ -87,27 +102,41 @@ class MyApp extends StatelessWidget {
                       color: Colors.white,
                       fontSize: 18,
                     ),
+                    // try for free black bold normal text
+                    caption: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16),
+                    // feature items normal text
+                    subtitle2: TextStyle(color: Colors.black, fontSize: 17),
                   ),
                   primaryTextTheme: TextTheme(
-                    //button text blue
-                    button: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    // cards title
-                    headline6: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    // cards description
-                    headline5: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                        wordSpacing: 1.5,
-                        height: 1.25),
-                  ),
+                      caption: TextStyle(
+                        color: Colors.green,
+                        fontSize: 16,
+                      ),
+                      //button text blue
+                      button: TextStyle(
+                        color: Colors.blue,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      // cards title
+                      headline6: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      // cards description
+                      headline5: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15,
+                          wordSpacing: 1.5,
+                          height: 1.25),
+                      headline1: TextStyle(
+                          color: Colors.black,
+                          fontSize: 26,
+                          fontWeight: FontWeight.w700)),
                   accentColor: Colors.green,
                   dividerColor: Colors.grey,
                   appBarTheme: AppBarTheme(
@@ -123,8 +152,13 @@ class MyApp extends StatelessWidget {
                       ))),
               darkTheme: ThemeData.dark().copyWith(
                   scaffoldBackgroundColor: Colors.black,
-                  primaryIconTheme: IconThemeData(color: Colors.white, size: 22),
+                  primaryIconTheme:
+                      IconThemeData(color: Colors.white, size: 22),
                   primaryTextTheme: TextTheme(
+                    caption: TextStyle(
+                      color: Colors.green,
+                      fontSize: 16,
+                    ),
                     //button text blue
                     button: TextStyle(
                       color: Colors.white,
@@ -176,6 +210,13 @@ class MyApp extends StatelessWidget {
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
                     ),
+                    // try for free black bold normal text
+                    caption: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16),
+                    // feature items normal text
+                    subtitle2: TextStyle(color: Colors.black, fontSize: 17),
                   ),
                   dividerColor: Colors.grey.shade200,
                   accentColor: Colors.green.shade600,
@@ -189,9 +230,6 @@ class MyApp extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                       ))),
-              themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
-              home: LoginSignup(),
-              onGenerateRoute: Routes.generateRoutes,
             );
           },
         ),

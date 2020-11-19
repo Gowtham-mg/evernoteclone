@@ -6,7 +6,8 @@ class HiveHelper {
   static String auth = 'auth';
   static String token = 'token';
   static String userId = 'userId';
-
+  static String onboarding = 'onboarding';
+  
   static openBox(String boxName) async {
     await Hive.openBox(boxName);
   }

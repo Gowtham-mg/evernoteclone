@@ -7,124 +7,137 @@ class UpgradePlanOnline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width;
-    return Scrollbar(
-      controller: _scrollController,
-      child: ListView(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Scrollbar(
         controller: _scrollController,
-        children: [
-          ClipPath(
-            clipper: UpgradePlanCustomClipperBasic(),
-            child: Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: _width * 0.1),
-                  child: Text(MetaText.readyToDoMore),
-                ),
-                CloseButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                )
-              ],
+        child: ListView(
+          controller: _scrollController,
+          children: [
+            ClipPath(
+              clipper: UpgradePlanCustomClipperBasic(),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: _width * 0.1),
+                    child: Text(MetaText.readyToDoMore),
+                  ),
+                  CloseButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  )
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding:
-                EdgeInsets.symmetric(horizontal: _width * 0.1, vertical: 10),
-            child: Row(
-              children: [
-                Expanded(
-                    child: Column(
-                  children: [Text(MetaText.upgradeTo), Text(MetaText.premium)],
-                )),
-                Icon(Icons.cloud_upload),
-              ],
+            Padding(
+              padding:
+                  EdgeInsets.symmetric(horizontal: _width * 0.1, vertical: 10),
+              child: Row(
+                children: [
+                  Expanded(
+                      child: Column(
+                    children: [
+                      Text(MetaText.upgradeTo),
+                      Text(MetaText.premium)
+                    ],
+                  )),
+                  Icon(Icons.cloud_upload),
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding:
-                EdgeInsets.symmetric(horizontal: _width * 0.1, vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                featureItems(MetaText.unlimitedDevices, Icons.computer),
-                featureItems('10 GB ${MetaText.monthlyUploads.toLowerCase()}',
-                    Icons.cloud_upload),
-                featureItems('200 MB ${MetaText.perNote}', Icons.note),
-                Text(MetaText.premiumAlsoIncludes),
-                featureItems(MetaText.accessNotebooksOffline, Icons.check),
-                featureItems(MetaText.searchInDocsAndAttachments, Icons.check),
-                featureItems(MetaText.annotatePdfs, Icons.check),
-                featureItems(MetaText.liveChatSupport, Icons.check),
-                GreenButton(
-                  width: _width * 0.8,
-                  text: MetaText.goPremium,
-                  onPressed: () {},
-                ),
-                Text(MetaText.comparePlans),
-                Icon(Icons.keyboard_arrow_down)
-              ],
+            Padding(
+              padding:
+                  EdgeInsets.symmetric(horizontal: _width * 0.1, vertical: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FeatureItems(
+                      feature: MetaText.unlimitedDevices,
+                      iconData: Icons.computer),
+                  FeatureItems(
+                      feature: '10 GB ${MetaText.monthlyUploads.toLowerCase()}',
+                      iconData: Icons.cloud_upload),
+                  FeatureItems(
+                      feature: '200 MB ${MetaText.perNote}',
+                      iconData: Icons.note),
+                  Text(MetaText.premiumAlsoIncludes),
+                  FeatureItems(feature: MetaText.accessNotebooksOffline),
+                  FeatureItems(feature: MetaText.searchInDocsAndAttachments),
+                  FeatureItems(feature: MetaText.annotatePdfs),
+                  FeatureItems(feature: MetaText.liveChatSupport),
+                  GreenButton(
+                    width: _width * 0.8,
+                    text: MetaText.goPremium,
+                    onPressed: () {},
+                  ),
+                  Text(MetaText.comparePlans),
+                  Icon(Icons.keyboard_arrow_down)
+                ],
+              ),
             ),
-          ),
-          ClipPath(
-            clipper: UpgradePlanCustomClipperPremium(),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: _width * 0.1),
-              child: Text(MetaText.basic),
+            ClipPath(
+              clipper: UpgradePlanCustomClipperPremium(),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: _width * 0.1),
+                child: Text(MetaText.basic),
+              ),
             ),
-          ),
-          Padding(
-            padding:
-                EdgeInsets.symmetric(horizontal: _width * 0.1, vertical: 10),
-            child: Row(
-              children: [
-                Expanded(
-                    child: Column(
-                  children: [Text(MetaText.upgradeTo), Text(MetaText.premium)],
-                )),
-                Icon(Icons.cloud_upload),
-              ],
+            Padding(
+              padding:
+                  EdgeInsets.symmetric(horizontal: _width * 0.1, vertical: 10),
+              child: Row(
+                children: [
+                  Expanded(
+                      child: Column(
+                    children: [
+                      Text(MetaText.upgradeTo),
+                      Text(MetaText.premium)
+                    ],
+                  )),
+                  Icon(Icons.cloud_upload),
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding:
-                EdgeInsets.symmetric(horizontal: _width * 0.1, vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                featureItems(MetaText.basicDevicesLimit, Icons.computer),
-                featureItems('60 MB ${MetaText.monthlyUploads.toLowerCase()}',
-                    Icons.cloud_upload),
-                featureItems('25 MB ${MetaText.perNote}', Icons.note),
-                Text(MetaText.premiumAlsoIncludes),
-                featureItems(MetaText.accessNotebooksOffline, Icons.close),
-                featureItems(MetaText.searchInDocsAndAttachments, Icons.close),
-                featureItems(MetaText.annotatePdfs, Icons.close),
-                featureItems(MetaText.liveChatSupport, Icons.close),
-                BorderedButton(
-                  width: _width * 0.8,
-                  onPressed: () {},
-                  child: Text(MetaText.selectBasic),
-                ),
-                Text(MetaText.comparePlans),
-                Icon(Icons.keyboard_arrow_down)
-              ],
+            Padding(
+              padding:
+                  EdgeInsets.symmetric(horizontal: _width * 0.1, vertical: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FeatureItems(
+                      feature: MetaText.basicDevicesLimit,
+                      iconData: Icons.computer),
+                  FeatureItems(
+                      feature: '60 MB ${MetaText.monthlyUploads.toLowerCase()}',
+                      iconData: Icons.cloud_upload),
+                  FeatureItems(
+                      feature: '25 MB ${MetaText.perNote}',
+                      iconData: Icons.note),
+                  Text(MetaText.premiumAlsoIncludes),
+                  FeatureItems(
+                      feature: MetaText.accessNotebooksOffline,
+                      iconData: Icons.close),
+                  FeatureItems(
+                      feature: MetaText.searchInDocsAndAttachments,
+                      iconData: Icons.close),
+                  FeatureItems(
+                      feature: MetaText.annotatePdfs, iconData: Icons.close),
+                  FeatureItems(
+                      feature: MetaText.liveChatSupport, iconData: Icons.close),
+                  BorderedButton(
+                    width: _width * 0.8,
+                    onPressed: () {},
+                    child: Text(MetaText.selectBasic),
+                  ),
+                  Text(MetaText.comparePlans),
+                  Icon(Icons.keyboard_arrow_down)
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    );
-  }
-
-  Row featureItems(String feature, IconData iconData) {
-    return Row(
-      children: [
-        Icon(iconData),
-        Padding(
-          padding: EdgeInsets.only(left: 10),
-          child: Text(feature),
-        )
-      ],
     );
   }
 }

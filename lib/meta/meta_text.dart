@@ -264,4 +264,42 @@ class MetaText {
   static const String browseHistoryOfNotes = 'Browse the history of your notes';
   static const String discoverRelatedContent = 'Discover related content';
   static const String readyToDoMore = 'Ready to do more with Evernote';
+
+  static const String tryEvernote = 'Try Evernote Premium for free';
+  static const String startFreeTrial = 'START FREE TRIAL';
+  static const String syncAcrossAllDevices = 'Sync across all your devices';
+  static const String get10GbPerMonth = 'Get 10 GB of uploads per month';
+  static const String accessYourNotebooksOffline =
+      'Access your notebooks offline';
+  static const String tryit = 'Try it FreeFor7Days';
+  static const String freeFor7Days = 'free for 7 Days';
+  static const String cancelAnyTime = 'and cancel at any time';
+
+  static const String users = 'users';
+  static const String note = 'note';
+  static const String welcome = 'Welcome!';
+  static const String greatSyncNow = 'Great! Now sync your account.';
+  static const String wowTryScaningDocs = 'Wow! Try scanning your docs.';
+  static const String letsTakeATour =
+      'Take a quick tour to learn what you can accomplish with Evernote';
+  static const String noThanks = "No thanks";
+  static const String createANote = "Create a note";
+  static const String showMeHow = "Show me how";
+  static const String emailMeALink = "Email me a link";
+  static const String onboarding3Description =
+      "You can also save photos and articles from the web to Evernote";
+  static const String onboarding4Description =
+      "You can also save photos and articles from the web to Evernote";
+  static const String onboarding1Description = "Start writing notes, anywhere, anytime";
+  static const String greatLetsGo = "Great, let's go!";
+  static const String onboarding2Description =
+      "Try scanning a receipt, business card, or document - anything you might need later.";
+  static const String tryTheCamera = "Try the camera";
+  static const String niceWork = 'Nice work!';
+  static const String nowYouHaveGotBasics = "Now you've got the basics";
+  static const String gotomyNotes = 'Go to my notes';
+  static const String takeTourLater = 'TAKE TOUR NOW';
+  static const String takeTheTourLater = 'Take the tour later?';
+  static const String quitTour = 'QUIT TOUR';
+  static const String takeTheTourLaterDescription = 'Find it in Settings > Tutorials > Evenote Tour';
 }

@@ -7,27 +7,39 @@ import 'package:evernote/repository/login_token.dart';
 import 'package:evernote/repository/user.dart';
 
 abstract class LoginRepository {
-  Future<AppResponse> signInWithGoogle();
+  Future<AppResponse<AppToken>> signInWithGoogle();
   signUpWithEmailPassword({String email, String password, String path});
-  signInWithEmailPassword({String email, String password, String path});
+  Future<AppResponse<AppToken>> signInWithEmailPassword(
+      {String email, String password, String path});
 }
 
 class LoginFirebaseRepository extends LoginRepository {
   final LoginTokenRepository loginTokenRepository;
   final UserRepository userRepository;
+  final FirebaseAuth firebaseAuth;
 
-  LoginFirebaseRepository(this.loginTokenRepository, this.userRepository);
+  LoginFirebaseRepository(
+      this.loginTokenRepository, this.userRepository, this.firebaseAuth);
   @override
-  signInWithEmailPassword({String email, String password, String path}) {
-    // TODO: implement signInWithEmailPassword
-    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-    firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+  Future<AppResponse<AppToken>> signInWithEmailPassword(
+      {String email, String password, String path}) async {
+    try {
+      var userCredential = await firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
+      var token = AppToken.named(userId: userCredential.user.uid);
+      await loginTokenRepository.saveToken(token);
+      userModel.User user =
+          userModel.User.named(id: token.userId, email: email, name: "");
+      await userRepository.createUser(user);
+      return AppResponse.named(data: token);
+    } catch (e) {
+      return AppResponse.named(error: e.toString());
+    }
   }
 
   @override
-  Future<AppResponse> signInWithGoogle() async {
+  Future<AppResponse<AppToken>> signInWithGoogle() async {
     try {
-      FirebaseAuth firebaseAuth = FirebaseAuth.instance;
       GoogleSignIn _googleSign = GoogleSignIn();
       var response = await _googleSign.signIn();
       var authentication = await response.authentication;
@@ -36,21 +48,32 @@ class LoginFirebaseRepository extends LoginRepository {
           idToken: authentication.idToken);
       var googleResponse = await firebaseAuth.signInWithCredential(credential);
       var token = googleResponse.user.uid;
-      await loginTokenRepository.saveToken(AppToken.named(
+      AppToken appToken = AppToken.named(
         token: token,
-      ));
+      );
+      await loginTokenRepository.saveToken(appToken);
       userModel.User user = userModel.User.named(
           id: token, name: googleResponse.user.displayName);
       await userRepository.createUser(user);
-      return AppResponse.named(data: token);
+      return AppResponse.named(data: appToken);
     } catch (e) {
       return AppResponse.named(error: "$e");
     }
   }
 
   @override
-  signUpWithEmailPassword({String email, String password, String path}) {
-    // TODO: implement signUpWithEmailPassword
-    throw UnimplementedError();
+  signUpWithEmailPassword({String email, String password, String path}) async {
+    try {
+      var userCredential = await firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      var token = AppToken.named(userId: userCredential.user.uid);
+      await loginTokenRepository.saveToken(token);
+      userModel.User user =
+          userModel.User.named(id: token.userId, email: email, name: "");
+      await userRepository.createUser(user);
+      return AppResponse.named(data: token);
+    } catch (e) {
+      return AppResponse.named(error: e.toString());
+    }
   }
 }
