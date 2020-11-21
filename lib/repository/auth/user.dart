@@ -1,7 +1,7 @@
 import 'package:evernote/models/app_response.dart';
 import 'package:evernote/models/app_token.dart';
 import 'package:evernote/models/user.dart';
-import 'package:evernote/repository/token.dart';
+import 'package:evernote/repository/auth/token.dart';
 
 abstract class UserRepository {
   Future<AppResponse<User>> getSelf();

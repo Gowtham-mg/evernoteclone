@@ -3,7 +3,7 @@ import 'package:evernote/meta/meta_text.dart';
 import 'package:evernote/models/app_response.dart';
 import 'package:evernote/models/app_token.dart';
 import 'package:evernote/models/user.dart' as userModel;
-import 'package:evernote/repository/login.dart';
+import 'package:evernote/repository/auth/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

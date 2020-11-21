@@ -21,17 +21,20 @@ class NoteAdapter extends TypeAdapter<Note> {
       fields[1] as String,
       fields[2] as String,
       fields[3] as DateTime,
-      fields[5] as Notebook,
+      fields[5] as String,
       fields[4] as DateTime,
       fields[6] as bool,
       fields[7] as bool,
+      (fields[8] as List)?.cast<String>(),
+      fields[9] as String,
+      fields[10] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, Note obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(11)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -39,15 +42,21 @@ class NoteAdapter extends TypeAdapter<Note> {
       ..writeByte(2)
       ..write(obj.content)
       ..writeByte(3)
-      ..write(obj.date)
+      ..write(obj.createdAt)
       ..writeByte(4)
-      ..write(obj.lastSeenDate)
+      ..write(obj.updatedAt)
       ..writeByte(5)
-      ..write(obj.notebook)
+      ..write(obj.notebookId)
       ..writeByte(6)
       ..write(obj.isDeleted)
       ..writeByte(7)
-      ..write(obj.availableOffline);
+      ..write(obj.availableOffline)
+      ..writeByte(8)
+      ..write(obj.tags)
+      ..writeByte(9)
+      ..write(obj.reminderId)
+      ..writeByte(10)
+      ..write(obj.location);
   }
 
   @override
@@ -70,13 +79,18 @@ Note _$NoteFromJson(Map<String, dynamic> json) {
     json['id'] as String,
     json['title'] as String,
     json['content'] as String,
-    json['date'] == null ? null : DateTime.parse(json['date'] as String),
-    json['notebook'] == null ? null : Notebook.fromJson(json['notebook']),
-    json['lastSeenDate'] == null
+    json['createdAt'] == null
         ? null
-        : DateTime.parse(json['lastSeenDate'] as String),
+        : DateTime.parse(json['createdAt'] as String),
+    json['notebookId'] as String,
+    json['updatedAt'] == null
+        ? null
+        : DateTime.parse(json['updatedAt'] as String),
     json['isDeleted'] as bool,
     json['availableOffline'] as bool,
+    (json['tags'] as List)?.map((e) => e as String)?.toList(),
+    json['reminderId'] as String,
+    json['location'] as String,
   );
 }
 
@@ -84,9 +98,12 @@ Map<String, dynamic> _$NoteToJson(Note instance) => <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'content': instance.content,
-      'date': instance.date?.toIso8601String(),
-      'lastSeenDate': instance.lastSeenDate?.toIso8601String(),
-      'notebook': instance.notebook?.toJson(),
+      'createdAt': instance.createdAt?.toIso8601String(),
+      'updatedAt': instance.updatedAt?.toIso8601String(),
+      'notebookId': instance.notebookId,
       'isDeleted': instance.isDeleted,
       'availableOffline': instance.availableOffline,
+      'tags': instance.tags,
+      'reminderId': instance.reminderId,
+      'location': instance.location,
     };

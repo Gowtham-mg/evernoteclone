@@ -1,7 +1,7 @@
 import 'package:evernote/hive_helper.dart';
 import 'package:evernote/models/app_response.dart';
 import 'package:evernote/models/app_token.dart';
-import 'package:evernote/repository/token.dart';
+import 'package:evernote/repository/auth/token.dart';
 import 'package:flutter/widgets.dart';
 
 class LoginTokenRepository extends TokenRepository {

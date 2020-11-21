@@ -3,8 +3,8 @@ import 'package:evernote/models/app_token.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:evernote/models/user.dart' as userModel;
-import 'package:evernote/repository/login_token.dart';
-import 'package:evernote/repository/user.dart';
+import 'package:evernote/repository/auth/login_token.dart';
+import 'package:evernote/repository/auth/user.dart';
 
 abstract class LoginRepository {
   Future<AppResponse<AppToken>> signInWithGoogle();
