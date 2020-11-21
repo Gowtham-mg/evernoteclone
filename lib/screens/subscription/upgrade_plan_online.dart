@@ -33,6 +33,7 @@ class UpgradePlanOnline extends StatelessWidget {
                   ),
                 ),
                 CloseButton(
+                  color: Colors.grey.shade800,
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -117,7 +118,10 @@ class UpgradePlanOnline extends StatelessWidget {
                       )),
                   Align(
                       alignment: Alignment.center,
-                      child: Icon(Icons.keyboard_arrow_down))
+                      child: Icon(
+                        Icons.keyboard_arrow_down,
+                        color: Colors.grey.shade800,
+                      ))
                 ],
               ),
             ),
@@ -173,10 +177,16 @@ class UpgradePlanOnline extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     child: BorderedButton(
                       width: _width * 0.8,
+                      color: Colors.grey.shade600,
                       onPressed: () {},
                       child: Padding(
                           padding: EdgeInsets.symmetric(vertical: 10),
-                          child: Text(MetaText.selectBasic)),
+                          child: Text(
+                            MetaText.selectBasic,
+                            style: TextStyle(
+                                color: Colors.grey.shade500,
+                                fontWeight: FontWeight.w500),
+                          )),
                     ),
                   ),
                 ],

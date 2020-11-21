@@ -29,6 +29,9 @@ class CollectPhotos extends StatelessWidget {
                     'assets/note1.svg',
                     height: 80,
                     width: 80,
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? null
+                        : Colors.white,
                   ),
                 ),
                 Positioned(
@@ -90,7 +93,10 @@ class CollectPhotos extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 15),
               child: Text(
                 MetaText.collectPhotosDescription2,
-                style: Theme.of(context).textTheme.headline6.copyWith(height: 1.75),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6
+                    .copyWith(height: 1.75),
                 textAlign: TextAlign.center,
               ),
             )

@@ -71,10 +71,10 @@ class MyApp extends StatelessWidget {
                   HiveBoxHelper.auth, HiveKeyHelper.onboarding) ??
               1),
         ),
-        BlocProvider<DrawerCubit>(create: (context)=> DrawerCubit()),
-        BlocProvider<TabSelectedCubit>(create: (context)=> TabSelectedCubit()),
-        BlocProvider<AllNotesSelectedCubit>(create: (context)=> AllNotesSelectedCubit()),
-        
+        BlocProvider<DrawerCubit>(create: (context) => DrawerCubit()),
+        BlocProvider<TabSelectedCubit>(create: (context) => TabSelectedCubit()),
+        BlocProvider<AllNotesSelectedCubit>(
+            create: (context) => AllNotesSelectedCubit()),
       ],
       child: Builder(
         builder: (BuildContext context) => ValueListenableBuilder(
@@ -86,19 +86,38 @@ class MyApp extends StatelessWidget {
               title: 'Flutter Demo',
               debugShowCheckedModeBanner: false,
               themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
-              home: LoginSignup(),
+              // home: LoginSignup(),
               onGenerateRoute: Routes.generateRoutes,
               theme: ThemeData(
+                  tabBarTheme: TabBarTheme(
+                    indicator: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Colors.grey.shade700,
+                        ),
+                      ),
+                    ),
+                    indicatorSize: TabBarIndicatorSize.label,
+                    labelColor: Colors.grey.shade700,
+                    labelPadding: EdgeInsets.all(5),
+                    labelStyle: TextStyle(
+                        color: Colors.grey.shade700,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500),
+                    unselectedLabelColor: Colors.grey.shade700,
+                    unselectedLabelStyle: TextStyle(
+                        color: Colors.grey.shade700,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500),
+                  ),
                   scaffoldBackgroundColor: Colors.white,
                   // primary icons theme
                   primaryIconTheme:
                       IconThemeData(color: Colors.grey.shade800, size: 22),
                   textTheme: TextTheme(
                     // plan limit darkgrey
-                    headline4: TextStyle(
-                        color: Colors.grey.shade800,
-                        fontSize: 18
-                      ),
+                    headline4:
+                        TextStyle(color: Colors.grey.shade800, fontSize: 18),
                     headline1: TextStyle(
                       color: Colors.grey.shade700,
                       fontSize: 20,
@@ -162,6 +181,10 @@ class MyApp extends StatelessWidget {
                           fontSize: 15,
                           wordSpacing: 1.5,
                           height: 1.25),
+                      bodyText1: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 14,
+                      ),
                       //drawer email
                       subtitle2: TextStyle(
                           color: Colors.black,
@@ -187,6 +210,24 @@ class MyApp extends StatelessWidget {
                         ),
                       ))),
               darkTheme: ThemeData.dark().copyWith(
+                  tabBarTheme: TabBarTheme(
+                      indicator: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(
+                        color: Colors.white70,
+                      ))),
+                      indicatorSize: TabBarIndicatorSize.label,
+                      labelColor: Colors.white70,
+                      unselectedLabelColor: Colors.white70,
+                      labelPadding: EdgeInsets.all(5),
+                      labelStyle: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500),
+                      unselectedLabelStyle: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500)),
                   scaffoldBackgroundColor: Colors.black,
                   primaryIconTheme:
                       IconThemeData(color: Colors.white, size: 22),
@@ -226,13 +267,14 @@ class MyApp extends StatelessWidget {
                         color: Colors.white,
                         fontSize: 15,
                         fontWeight: FontWeight.w600),
+                    bodyText1: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                    ),
                   ),
                   textTheme: TextTheme(
                     // plan limit darkgrey
-                    headline4: TextStyle(
-                        color: Colors.grey.shade800,
-                        fontSize: 18
-                      ),
+                    headline4: TextStyle(color: Colors.white54, fontSize: 18),
                     headline1: TextStyle(
                       color: Colors.white70,
                       fontSize: 20,
@@ -275,7 +317,8 @@ class MyApp extends StatelessWidget {
                   dividerColor: Colors.grey.shade200,
                   accentColor: Colors.green.shade600,
                   appBarTheme: AppBarTheme(
-                      iconTheme: IconThemeData(color: Colors.grey.shade300, size: 19),
+                      iconTheme:
+                          IconThemeData(color: Colors.grey.shade300, size: 19),
                       color: ThemeData.dark().primaryColorDark,
                       textTheme: TextTheme(
                         headline6: TextStyle(

@@ -63,7 +63,7 @@ class CustomDrawer extends StatelessWidget {
               title: MetaText.collectPhotos,
               onPressed: () {
                 drawerCubit.updateVal(MetaText.collectPhotos);
-                Navigator.pushReplacementNamed(context, Routes.collectPhotos);
+                Navigator.pushNamed(context, Routes.collectPhotos);
               },
             ),
             DrawerItems(

@@ -12,7 +12,9 @@ class Workchat extends StatelessWidget {
       actions: [
         IconButton(
           icon: Icon(Icons.people),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, Routes.sharedWithMe);
+          },
         ),
         PopupMenuButton(
             icon: Icon(Icons.more_vert),
@@ -65,8 +67,7 @@ class WorkChatEmpty extends StatelessWidget {
                               TextButton(
                                 child: Text(MetaText.deny),
                                 onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, Routes.newChat);
+                                  Navigator.pushNamed(context, Routes.newChat);
                                 },
                               ),
                               TextButton(
@@ -84,10 +85,14 @@ class WorkChatEmpty extends StatelessWidget {
                     );
                   });
             },
+            minWidth: 0,
             shape: CircleBorder(),
-            padding: EdgeInsets.zero,
+            padding: EdgeInsets.all(5),
             color: Colors.blue.shade300,
-            child: Icon(Icons.add),
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
           ),
           DecoratedBox(
             decoration: BoxDecoration(
@@ -104,24 +109,40 @@ class WorkChatEmpty extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
                 Padding(
-                    padding: EdgeInsets.symmetric(horizontal: _width * 0.07, vertical: 20),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: _width * 0.07, vertical: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(MetaText.startChatting),
-                        Row(
-                          children: [
-                            Text('${MetaText.tap} '),
-                            CircleAvatar(
-                              radius: 14,
-                              child: Padding(
-                                child: Icon(Icons.add),
-                                padding: EdgeInsets.all(3),
+                        Text(
+                          MetaText.startChatting,
+                          style: Theme.of(context).primaryTextTheme.headline6,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Row(
+                            children: [
+                              Text('${MetaText.tap} ',
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .bodyText1),
+                              Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.blue.shade300,
+                                ),
+                                child: Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                  size: 17,
+                                ),
                               ),
-                              backgroundColor: Colors.blue.shade300,
-                            ),
-                            Text(' ${MetaText.tapTostartChat}'),
-                          ],
+                              Text(' ${MetaText.tapTostartChat}',
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .bodyText1),
+                            ],
+                          ),
                         ),
                       ],
                     )),

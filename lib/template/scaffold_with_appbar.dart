@@ -6,9 +6,14 @@ class ScaffoldWithAppBar extends StatelessWidget {
   final Widget child;
   final String title;
   final List<Widget> actions;
+  final bool showFloatingActionBar;
 
   ScaffoldWithAppBar(
-      {Key key, @required this.child, @required this.title, this.actions})
+      {Key key,
+      @required this.child,
+      @required this.title,
+      this.actions,
+      this.showFloatingActionBar = true})
       : super(key: key);
 
   @override
@@ -28,7 +33,7 @@ class ScaffoldWithAppBar extends StatelessWidget {
         body: child,
         floatingActionButtonLocation:
             FloatingActionButtonLocation.miniCenterDocked,
-        floatingActionButton: Padding(
+        floatingActionButton: showFloatingActionBar ? Padding(
           padding: const EdgeInsets.only(bottom: 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -84,7 +89,7 @@ class ScaffoldWithAppBar extends StatelessWidget {
                   ))
             ],
           ),
-        ),
+        ) : null,
         drawer: CustomDrawer(),
       ),
     );

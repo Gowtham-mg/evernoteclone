@@ -11,6 +11,7 @@ class UpgradePlanOffline extends StatelessWidget {
     TabSelectedCubit tabSelectedCubit = context.watch<TabSelectedCubit>();
     return DefaultTabController(
       length: 2,
+      initialIndex: tabSelectedCubit.state,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).appBarTheme.color,
@@ -27,19 +28,18 @@ class UpgradePlanOffline extends StatelessWidget {
           title: SvgPicture.asset('assets/logo.svg'),
           centerTitle: true,
           bottom: TabBar(
-            indicatorColor: Theme.of(context).textTheme.bodyText1.color,
-            indicatorSize: TabBarIndicatorSize.label,
-            indicatorWeight: 3,
             onTap: (int _index) {
               tabSelectedCubit.updateVal(_index);
             },
             tabs: [
               Tab(
-                child: plan(MetaText.basic, context),
+                text: MetaText.basic,
               ),
               Tab(
-                child: plan(MetaText.premium, context),
-              )
+                text: MetaText.premium,
+                // child: Text(
+                //    style: Theme.of(context).textTheme.bodyText1),
+              ),
             ],
           ),
         ),
@@ -266,9 +266,6 @@ class UpgradePlanOffline extends StatelessWidget {
       ),
     );
   }
-
-  Text plan(String title, BuildContext context) =>
-      Text(title, style: Theme.of(context).textTheme.bodyText1);
 }
 
 class TabSelectedCubit extends Cubit<int> {
