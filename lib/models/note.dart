@@ -1,4 +1,3 @@
-import 'notebook.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:hive/hive.dart';
 
@@ -29,6 +28,8 @@ class Note extends HiveObject {
   final String reminderId;
   @HiveField(10)
   final String location;
+  @HiveField(11)
+  final String userId;
 
   Note(
       this.id,
@@ -41,9 +42,11 @@ class Note extends HiveObject {
       this.availableOffline,
       this.tags,
       this.reminderId,
-      this.location);
+      this.location,
+      this.userId);
   Note.named(
       {this.updatedAt,
+      this.userId,
       this.location,
       this.reminderId,
       this.tags,
@@ -63,6 +66,7 @@ class Note extends HiveObject {
       String location,
       String id,
       String title,
+      String userId,
       String content,
       String reminderId}) {
     return Note.named(
@@ -74,6 +78,7 @@ class Note extends HiveObject {
         id: id ?? this.id,
         title: title ?? this.title,
         availableOffline: availableOffline ?? this.availableOffline,
+        userId: userId ?? this.userId,
         isDeleted: isDeleted ?? this.isDeleted,
         content: content ?? this.content,
         reminderId: reminderId ?? this.reminderId);

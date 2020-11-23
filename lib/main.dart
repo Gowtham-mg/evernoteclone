@@ -12,7 +12,6 @@ import 'package:evernote/repository/auth/login.dart';
 import 'package:evernote/repository/auth/login_token.dart';
 import 'package:evernote/repository/auth/user.dart';
 import 'package:evernote/routes/routes.dart';
-import 'package:evernote/screens/auth/login_signup.dart';
 import 'package:evernote/screens/common.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

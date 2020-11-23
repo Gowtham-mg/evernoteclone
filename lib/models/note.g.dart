@@ -28,13 +28,14 @@ class NoteAdapter extends TypeAdapter<Note> {
       (fields[8] as List)?.cast<String>(),
       fields[9] as String,
       fields[10] as String,
+      fields[11] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, Note obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(12)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -56,7 +57,9 @@ class NoteAdapter extends TypeAdapter<Note> {
       ..writeByte(9)
       ..write(obj.reminderId)
       ..writeByte(10)
-      ..write(obj.location);
+      ..write(obj.location)
+      ..writeByte(11)
+      ..write(obj.userId);
   }
 
   @override
@@ -91,6 +94,7 @@ Note _$NoteFromJson(Map<String, dynamic> json) {
     (json['tags'] as List)?.map((e) => e as String)?.toList(),
     json['reminderId'] as String,
     json['location'] as String,
+    json['userId'] as String,
   );
 }
 
@@ -106,4 +110,5 @@ Map<String, dynamic> _$NoteToJson(Note instance) => <String, dynamic>{
       'tags': instance.tags,
       'reminderId': instance.reminderId,
       'location': instance.location,
+      'userId': instance.userId,
     };
